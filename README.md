@@ -32,11 +32,11 @@ However, if you want to export a function or another object, you have to use the
 There are several options, but my favourites are these:
 
 ###### 1. The Alias
-1. Install the [module-alias](https://www.npmjs.com/package/module-alias) package
+- Install the [module-alias](https://www.npmjs.com/package/module-alias) package
 ```
 npm i --save module-alias
 ```
-2. Add paths to your `package.json` like this:
+- Add paths to your `package.json` like this:
 ```
 {
     "_moduleAliases": {
@@ -45,38 +45,59 @@ npm i --save module-alias
     }
 }
 ```
-3. In your entry-point file, before any `require()` calls:
+- In your entry-point file, before any `require()` calls:
 ```
 require('module-alias/register')
 ```
-4. You can now require files like this:
+- You can now require files like this:
 ```
 const Article = require('@models/article');
 ```
 
 ###### 2. The Global
-1. In your entry-point file, before any `require()` calls:
+- In your entry-point file, before any `require()` calls:
 ```
 global.__base = __dirname + '/';
 ```
-2. In your very/far/away/module.js
+- In your very/far/away/module.js
 ```
 const Article = require(`${__base}app/models/article`);
 ```
 
 ###### 3. The Module
-1. Install some module:
+- Install some module:
 ```
 npm install app-module-path --save
 ```
-2. In your entry-point file, before any `require()` calls:
+- In your entry-point file, before any `require()` calls:
 ```
 require('app-module-path').addPath(`${__dirname}/app`);
 ```
-3. In your very/far/away/module.js
+- In your very/far/away/module.js
 ```
 const Article = require('models/article');
 ```
 
 ### 4. What is the Event Loop? Is it part of V8?
 In event-driven programming, an application expresses interest in certain events and respond to them when they occur. This is the way Node.js can handle asynchronous execution while running the code in a single thread. When an asynchronous operation starts (for example, when we call `setTimeout`, `http.get` or `fs.readFile`), Node.js sends these operations to a different thread allowing V8 to keep executing our code. Node also calls the callback when the counter has run down or the IO/http operation has finished. In Node.js, the responsibility of gathering events from the operating system or monitoring other sources of events is handled by [libuv](https://github.com/libuv/libuv), and the user can register callbacks to be invoked when an event occurs. The event-loop usually keeps running forever.
+
+> the event loop is something that embedders should have control over. However, it is also a fundamental abstract concept of the JavaScript programming model. V8's solution is to provide a default implementation that embedders can override. See [Relationship between event loop,libuv and v8 engine.](https://stackoverflow.com/questions/49811043/relationship-between-event-loop-libuv-and-v8-engine)
+
+###### SUB QUES: Does the event loop and JavaScript code is running in the same thread?
+Effectively **YES**. the "event loop" isn't really a thing that's running. It's mostly just a queue of callbacks waiting for their turn to run.
+
+### 5. What is the Call Stack? Is it part of V8?
+
+The call stack is the basic mechanisum for javascript code execution. When we call a function, we push the function parameters and the return address to the stack. This allows to runtime to know where to continue code execution once the function ends.
+In NodeJS, the Call Stack is handled by V8.
+
+[Understanding the JavaScript call stack](https://medium.freecodecamp.org/understanding-the-javascript-call-stack-861e41ae61d4)
+
+The call stack is primarily used for `function invocation(call)`. Since the call stack is single, function(s) execution is done one at a time from top to bottom. means **the call stack is synchronous**.
+
+> A call stack is a data structure that uses the **Last In, First Out(LIFO)** principle to temporarily store and manage `function invocation(call)`.
+
+###### Temporarily Store
+When a function is invoked(called), the function, its parameters and variables are pushed into the call stack to form a stack frame. This stack is a memory location in the stack. The memory is cleared when the function returns as it is pop out of the stack.
+![Temporarily Store](https://user-images.githubusercontent.com/8571179/54331221-348e3980-4643-11e9-9597-6b0f99e977f7.png)
+
