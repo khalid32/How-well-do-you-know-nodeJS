@@ -3,6 +3,15 @@
 ## Description
 A list of specific questions by Samer Buna a Node.js developer is expected to answer
 
+## Table of Content
+
+##### 1. [How come when you declare a global variable in any Node.js file it’s not really global to all modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#1-how-come-when-you-declare-a-global-variable-in-any-nodejs-file-its-not-really-global-to-all-modules)    
+##### 2. [When exporting the API of a Node module, why can we sometimes use `exports` and other times we have to use `module.exports`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#2-when-exporting-the-api-of-a-node-module-why-can-we-sometimes-use-exports-and-other-times-we-have-to-use-moduleexports)
+##### 3. [Can we require local files without using relative paths?](https://github.com/khalid32/How-well-do-you-know-nodeJS#3-can-we-require-local-files-without-using-relative-paths)
+##### 4. [What is the Event Loop? Is it part of V8?](https://github.com/khalid32/How-well-do-you-know-nodeJS#3-can-we-require-local-files-without-using-relative-paths)
+##### 5. [What is the Call Stack? Is it part of V8?](https://github.com/khalid32/How-well-do-you-know-nodeJS#3-can-we-require-local-files-without-using-relative-paths)
+##### 6. [What is the difference between `setImmediate` and `process.nextTick`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#3-can-we-require-local-files-without-using-relative-paths)
+
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
 ```
