@@ -101,3 +101,26 @@ The call stack is primarily used for `function invocation(call)`. Since the call
 When a function is invoked(called), the function, its parameters and variables are pushed into the call stack to form a stack frame. This stack is a memory location in the stack. The memory is cleared when the function returns as it is pop out of the stack.
 ![Temporarily Store](https://user-images.githubusercontent.com/8571179/54331221-348e3980-4643-11e9-9597-6b0f99e977f7.png)
 
+### 6. What is the difference between `setImmediate` and `process.nextTick`?
+`setImmediate` and `process.nextTick` are two options to postpone code execution.
+
+###### setImmediate
+```
+setImmediate(function(){
+    console.log('PrintIn');
+})
+```
+First of all, `callback` function gets internally queued. Next, a check handle is registered in the event loop; its associated callback is a simple function that runs all the queued `callback` functions. Therefore, whenever the loop hits the check handles part, the internal queue is emptied and all the `callback`s are executed.
+
+The whole point of `setImmediate` is to postpone the execution of code until immediate after polling for I/O.
+
+> `setImmediate` callbacks will be the last to run on the current event loop iteration.
+
+###### process.nextTick
+In general, `process.nextTick` schedules a function to be executed when the current *tick* ends.
+However, in order to dig deper, we first need to be familiar with one of **node's central** C++ function, `MakeCallback`, which takes as parameter a JavaScript function along with its arguments and its calling object(*i.e.* the value of `this` inside the function)
+
+*[Node.js: setImmediate vs. process.nextTick](http://plafer.github.io/2015/09/08/nextTick-vs-setImmediate/)*
+
+`setImmediate` queues a function behind whatever I/O event callbacks that are already in the event queue. `process.nextTick` queues a function at the head of the event queue so that it executes immediately after the currently running function completes.
+
