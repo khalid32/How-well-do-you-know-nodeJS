@@ -133,3 +133,41 @@ However, in order to dig deper, we first need to be familiar with one of **node'
 
 `setImmediate` queues a function behind whatever I/O event callbacks that are already in the event queue. `process.nextTick` queues a function at the head of the event queue so that it executes immediately after the currently running function completes.
 
+### 7. How do you make an asynchronous function return a value?
+> Note that, it is not possible to return from an asynchronous call inside a synchronous method.
+
+you need to pass a callback that will receive the return value.
+```
+function foo(address, fn){
+    geocoder.geocode({'address': address}, function(result, status){
+        fn(result[0].geometry.location);
+    })
+}
+
+foo("address", function(location){
+    alert(location);
+});
+```
+**The thing is, if an inner function call is asynchronous, then all the functions 'wrapping' this call must also be asynchronous in order to 'return' a response.**
+
+> You could return a promise resolving to that value, for example `return Promise.resolve(true)`.
+
+### 8. Can callbacks be used with promises or is it one way or the other?
+Callbacks are not interchangeable with Promises. This means that callback-based APIs cannot be used as Promises. The main difference with callback-based APIs is it does not return a value, it just executes the callback with the result.
+
+But in NodeJS, both can be used together. For example, the following method calls a callback and returns a promise:
+```
+function foo(cb){
+    // do some processing
+    if(cb){
+        cb();
+    }
+    return Promise.resolve(true);
+}
+```
+
+### 9. What are the major differences between `spawn`, `exec`, and `fork`?
+- `exec` methods spawns a shell and then executes a command within that shell, buffering any generated output.
+- `spawn` works similarly to `exec`. The main difference is that `spawn` returns the process output as a stream while `exec` returns it as a buffer.
+- `fork` is a special case of `spawn` that also creates a new V8 engine instance. This is useful to create additional workers of the same Node.js code base.
+
