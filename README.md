@@ -170,4 +170,15 @@ function foo(cb){
 - `exec` methods spawns a shell and then executes a command within that shell, buffering any generated output.
 - `spawn` works similarly to `exec`. The main difference is that `spawn` returns the process output as a stream while `exec` returns it as a buffer.
 - `fork` is a special case of `spawn` that also creates a new V8 engine instance. This is useful to create additional workers of the same Node.js code base.
+> The `child_process.fork()` method is a special case of `child_process.spawn()` used specifically to spawn new Node.js processes. Like `child_process.spawn()`, a **ChildProcess** object is returned. The returned **ChildProcess** will have an additional communication channel built-in that allows messages to be passed back and forth netween the parent and child.
+
+[Understanding execFile, spawn, exec, and fork in Node.js ](https://dzone.com/articles/understanding-execfile-spawn-exec-and-fork-in-node)
+
+### 10. How does the cluster module work? How is it different than using a load balancer?
+> The cluster module is a NodeJS nodule that contains a set of functions and properties that help us forking processes to take advantage of multi-core systems. **It is probably the first level of scalability you must take care in your node application, specifically if you are working in a HTTP server application, before going to a higher scalability levels(meaning that scaling vertically and horizontally in different machines).**
+> Cluster lets you set up a master process that can handle load to worker processes.
+The cluster module allow us improve performance of our application in multicore CPU systems.
+> The cluster module allow us to load balance the incoming request among a set of worker processes and, because of this, improving the throughput of our application.
+
+[Understanding the NodeJS cluster module](http://www.acuriousanimal.com/2017/08/12/understanding-the-nodejs-cluster-module.html)
 
