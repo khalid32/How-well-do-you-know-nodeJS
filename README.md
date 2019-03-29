@@ -187,5 +187,28 @@ The cluster module allow us improve performance of our application in multicore 
 [Understanding the NodeJS cluster module](http://www.acuriousanimal.com/2017/08/12/understanding-the-nodejs-cluster-module.html)
 
 The [cluster module](https://nodejs.org/api/cluster.html) works by forking the server into several worker processes(all run inside the same host). The master process listens and accepts new connections and distributes them across the worker processes in a round-robin fashion (with some build-in smarts to avoid overloading a worker process).
-A load balancer, in contrast, is used to distribute incoming connections across --multiple hosts--.
+A load balancer, in contrast, is used to distribute incoming connections across *multiple hosts*.
 
+### 11. What are the --harmony-* flags?
+`--harmony` is a shortcut to enable all the harmony features (e.g. `--harmony_scoping`, `--harmony_proxies` etc). `harmony` enables new ECMAScript 6 features in the language.
+
+V8 is constantly improving and typically ships with features which may not be stable or ready for production environments, that require command-line **flags** to enable. Those **flags** are the **harmony flags**.
+
+These are flags that one can pass to the Node.js runtime to enable **Staged** features. Stages features are almost-completed features that are not considered stable by the V8 team.
+
+### 12. How can you read and inspect the memory usage of a Node.js process?
+###### Heap:
+The heap is a memory segment used to store objects, strings and closure
+
+###### Resident Set:
+A running Node.js process store all its memory inside a **Resident Set**. You can think of it as of a big box which contains some more boxes. The *Resident Set* contains also the actual JavaScript code(inside the **Code segment**) and the **Stack**, where all the variables live.
+![node-js-memory-usage-768x432](https://user-images.githubusercontent.com/8571179/55133956-9bd2e000-5151-11e9-98e8-7ea5a4737969.png)
+
+###### process!:
+**process** is a global Node.js object which contains information about the current Node.js process, and it provides **memoryUsage()** method.
+
+###### memoryUsage():
+memoryUsage returns an object with various information: **rss, heapTotal, heapUsed** (and **external**)
+- **rss** stands for *Resident Set Size*, it is the total memory allocated for the process execution.
+- **heapTotal** is the total size of the allocated heap.
+- **heapUsed** is the actual memory used during the execution of our process.
