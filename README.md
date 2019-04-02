@@ -15,6 +15,9 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [8. Can callbacks be used with promises or is it one way or the other?](https://github.com/khalid32/How-well-do-you-know-nodeJS#8-can-callbacks-be-used-with-promises-or-is-it-one-way-or-the-other)
 - [9. What are the major differences between spawn, exec, and fork?](https://github.com/khalid32/How-well-do-you-know-nodeJS#9-what-are-the-major-differences-between-spawn-exec-and-fork)
 - [10. How does the cluster module work? How is it different than using a load balancer?](https://github.com/khalid32/How-well-do-you-know-nodeJS#10-how-does-the-cluster-module-work-how-is-it-different-than-using-a-load-balancer)
+- [11. What are the --harmony flags?](https://github.com/khalid32/How-well-do-you-know-nodeJS#11-what-are-the---harmony-flags)
+- [12. How can you read and inspect the memory usage of a Node.js process?](https://github.com/khalid32/How-well-do-you-know-nodeJS#12-how-can-you-read-and-inspect-the-memory-usage-of-a-nodejs-process)
+- [13. Can reverse-search in commands history be used inside Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#13-can-reverse-search-in-commands-history-be-used-inside-nodes-repl)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
@@ -218,3 +221,8 @@ You can invoke the `process.memoryUsage()` method which returns an object descri
 [How to inspect the memory usage of a process in Node.Js](https://www.valentinog.com/blog/memory-usage-node-js/)
 
 ### 13. Can reverse-search in commands history be used inside Node’s REPL?
+Currently is seems like its not possible. The **Node REPL** does allow to persist the history into a file and later load it, but doesn't allow to reverse-search it. So it appears that reverse history search is not natively supported by the REPL.
+
+However you can install the `rlwrap` utility and run it on top of the Node REPL to provide similar functionality. The [REPL documentation](https://nodejs.org/api/repl.html#repl_using_the_node_js_repl_with_advanced_line_editors) site has some basic instructions to get you up and running.
+
+### 14. What are V8 object and function templates?
