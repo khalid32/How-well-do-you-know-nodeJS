@@ -189,7 +189,7 @@ The cluster module allow us improve performance of our application in multicore 
 The [cluster module](https://nodejs.org/api/cluster.html) works by forking the server into several worker processes(all run inside the same host). The master process listens and accepts new connections and distributes them across the worker processes in a round-robin fashion (with some build-in smarts to avoid overloading a worker process).
 A load balancer, in contrast, is used to distribute incoming connections across *multiple hosts*.
 
-### 11. What are the --harmony-* flags?
+### 11. What are the `--harmony` flags?
 `--harmony` is a shortcut to enable all the harmony features (e.g. `--harmony_scoping`, `--harmony_proxies` etc). `harmony` enables new ECMAScript 6 features in the language.
 
 V8 is constantly improving and typically ships with features which may not be stable or ready for production environments, that require command-line **flags** to enable. Those **flags** are the **harmony flags**.
@@ -212,3 +212,9 @@ memoryUsage returns an object with various information: **rss, heapTotal, heapUs
 - **rss** stands for *Resident Set Size*, it is the total memory allocated for the process execution.
 - **heapTotal** is the total size of the allocated heap.
 - **heapUsed** is the actual memory used during the execution of our process.
+
+You can invoke the `process.memoryUsage()` method which returns an object describing the memory usage of the Node.js process, measured in bytes.
+
+[How to inspect the memory usage of a process in Node.Js](https://www.valentinog.com/blog/memory-usage-node-js/)
+
+### 13. Can reverse-search in commands history be used inside Node’s REPL?
