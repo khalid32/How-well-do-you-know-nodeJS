@@ -226,3 +226,34 @@ Currently is seems like its not possible. The **Node REPL** does allow to persis
 However you can install the `rlwrap` utility and run it on top of the Node REPL to provide similar functionality. The [REPL documentation](https://nodejs.org/api/repl.html#repl_using_the_node_js_repl_with_advanced_line_editors) site has some basic instructions to get you up and running.
 
 ### 14. What are V8 object and function templates?
+V8 object is a native, C++ representation of a JavaScript object. It is a essentially the way the V8 engine views javascript objects. A function template is the blueprint for a single function. You create a JavaScript instance of the template by calling the template's.
+
+`GetFunction` method from within the context in which you wish to instantiate the JavaScript function. You can also associate a C++ callback with a function template which is called when the JavaScript function instance is invoked.
+
+###### FunctionTemplate structure:
+Note that: A JavaScript function, is a first class object.
+It can be called, can be called as a constructor(instanced), which will create a prototype chain if needed, and the function object itself can hold functions and variables.
+All this translates directly into native code, where a `v8::FunctionTemplate` object(or `interface_template`), exposes two methods returning a `Local<ObjectTemplate>`:
+```
+// prototype function template
+Local<ObjectTeplate> prototype_t = interface_t->PrototypeTemplate();
+
+// instance function template
+Local<ObjectTemplate> instance_t = interface_t->InstanceTemplate();
+```
+
+###### CallHandler:
+CallHandler function is a special native constructor delegate. It is responsible for associating a JavaScript with its native wrappable when invoked from javascript as `new Event()`, but it also must handle the situation when an existing native object, just needs to be wrapped and be available in javascript.
+
+[Javascript native wrappers in V8 — Part I](https://medium.com/@hyperandroid/javascript-native-wrappers-in-v8-part-i-67851a3a797a)
+
+### 15. What is libuv and how does Node.js use it?
+`libuv` is a library that allows your JavaScript code(via V8) to perform I/O.
+whether it is network, file etc. So from TCP level connectivity all the way to file/system ops are actually performed by the libuv library.
+It achieves great performance through combining both asynchronous event loop and thread pool fro non-io blocking and io blocking operation. It's a good choice for high performance server.
+
+The only downside is if synchronous thread-pool model is your daily life, you may find the asynchronous model a little tricky, especially you need to know when is the best time to release the "handles"(there are different kind of "handles"), if not getting that right, libuv will crash and make your debugging hard.
+
+libuv is written in C, but it uses some OO(Object Oriented) trick in things like "handle" which is kind of smart.
+
+### 16. How can you make Node’s REPL always use JavaScript strict mode?
