@@ -21,6 +21,10 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [11. What are the --harmony flags?](https://github.com/khalid32/How-well-do-you-know-nodeJS#11-what-are-the---harmony-flags)
 - [12. How can you read and inspect the memory usage of a Node.js process?](https://github.com/khalid32/How-well-do-you-know-nodeJS#12-how-can-you-read-and-inspect-the-memory-usage-of-a-nodejs-process)
 - [13. Can reverse-search in commands history be used inside Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#13-can-reverse-search-in-commands-history-be-used-inside-nodes-repl)
+- [14. What are V8 object and function templates?](https://github.com/khalid32/How-well-do-you-know-nodeJS#14-what-are-v8-object-and-function-templates)
+- [15. What is libuv and how does Node.js use it?](https://github.com/khalid32/How-well-do-you-know-nodeJS#15-what-is-libuv-and-how-does-nodejs-use-it)
+- [16. How can you make Node’s REPL always use JavaScript strict mode?](https://github.com/khalid32/How-well-do-you-know-nodeJS#16-how-can-you-make-nodes-repl-always-use-javascript-strict-mode)
+- [17. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?](https://github.com/khalid32/How-well-do-you-know-nodeJS#17-how-can-we-do-one-final-operation-before-a-node-process-exits-can-that-operation-be-done-asynchronously)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
