@@ -3,6 +3,9 @@
 ## Description
 A list of specific questions by Samer Buna a Node.js developer is expected to answer
 
+## Link
+[Learning the Node.js Runtime :: Node.js Beyond the Basics](https://jscomplete.com/learn/node-beyond-basics)
+
 ## Table of Content
 
 - [1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#1-how-come-when-you-declare-a-global-variable-in-any-nodejs-file-its-not-really-global-to-all-modules)
@@ -257,3 +260,35 @@ The only downside is if synchronous thread-pool model is your daily life, you ma
 libuv is written in C, but it uses some OO(Object Oriented) trick in things like "handle" which is kind of smart.
 
 ### 16. How can you make Node’s REPL always use JavaScript strict mode?
+If you want to use [strict mode](http://2ality.com/2011/01/javascripts-strict-mode-summary.html) in the [Node.js REPL](https://nodejs.org/api/repl.html), you have two options.
+
+**Option 1.** Start the REPL as usual, wrap your code in an [IIFE](http://2ality.com/2011/02/javascript-variable-scoping-and-its.html):
+```
+(function(){
+    'use strict';
+    'abc'.length = 1
+}());
+// TypeError: Cannot assign to read only property 'length'
+```
+(Assigning to a read-only property fails silently in sloppy mode.)
+
+**Option 2.** Use the Node.js command line option `--use_strict`:
+```
+node --use_strict
+```
+Afterwards, everything you write in the REPL is interpreted in strict mode:
+```
+'abc'.length = 1
+// TypeError: Cannot assign to read only property 'length'
+```
+
+### 17. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?
+By registering a handler for `process.on('exit')`:
+```
+function exitHandler(options, err){
+    console.log('clean');
+}
+
+process.on('exit', exitHandler.bind(null));
+```
+Listener functions to the `exit` event must only perform synchronous operations. To perform asynchronous opertions, one can register a handler for `process.on('beforeExit')`.
