@@ -296,3 +296,69 @@ function exitHandler(options, err){
 process.on('exit', exitHandler.bind(null));
 ```
 Listener functions to the `exit` event must only perform synchronous operations. To perform asynchronous opertions, one can register a handler for `process.on('beforeExit')`.
+
+### 19. What’s the problem with the process `uncaughtException` event? How is it different than the exit event?
+The `uncaughtException` event is emitted when an uncaught javascript exception bubbles all the way back to the event loop. Once this event emmits, it means that your application is in an undefined state and it is not safe to continue.
+> Hence this event should only be used to perform synchronous cleanup of resources, logging and shutting down the process.
+
+The `exit` event is emitted when the Node.js process is about the exit as a result of either:
+- The `process.exit()` method being called explicitly.
+- The event loop has no additional work to perform.
+
+### 20. Do Node buffers use V8 memory? Can they be resized?
+###### Buffer:
+A buffer is a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.
+
+In node, each buffer corresponds to some raw memory allocated outside V8. A buffer acts like an array of integers, but cannot be resized.
+The buffer class is global. It deals with binary data directly and can be constructed in a variety of ways.
+
+[Using Buffers in Node.js](https://www.w3resource.com/node.js/nodejs-buffer.php)
+
+### 21. What’s the difference between `Buffer.alloc` and `Buffer.allocUnsafe`?
+`Buffer.alloc` allocates a memory chunk, initializes it (sets every cell to either zero or some predefined value) and returns a Node.js Buffer wrapping this memory chunk.
+
+`Buffer.allocUnsafe` skips the initialization stage. Instead it returns a Buffer pointing to uninitialized memory. This reduces the allocation time duration, but creates a possibility for(sensitive) data leakage, if this uninitialized memory is exposed to the user.
+Thus, you should only `Buffer.allocUnsafe` only if you plan to initialize the memory chunk yourself.
+
+### 22. How is the `slice` method on buffers different from that on arrays?
+The `buf.slice()` method on buffers is a mutating operation which modifies the memory in the original buffer.
+The `Array.prototype.slice()` method returns a shallow copy of a portion of an array and does not modify it.
+
+### 23. What is the string_decoder module useful for? How is it different than casting buffers to strings?
+The `string_decoder` module provides an API for decoding `Buffer` objects into strings in a manner that preserves encoded multi-byte UTF-8 and UTF-16 characters. It can be accessed using:
+```
+const { StringDecoder } = require('string_decoder');
+```
+The following example shows the basic use of the `StringDecoder` class.
+```
+const { StringDecoder } = require('string_decoder');
+const decoder = new StringDecoder('utf8');
+
+const cent = Buffer.from([0xC2, 0xA2]);
+console.log(decoder.write(cent));
+
+const euro = Buffer.from([0xE2, 0x82, 0xAC]);
+console.log(decoder.write(euro));
+```
+When a `Buffer` instance is written to the `StringDecoder` instance, an internal buffer is used to ensure that the decoder string does not contain any incomplete multibyte characters. These are held in the buffer until the next call to `stringDecoder.write` or until `stringDecoder.end()` is called.
+
+In the following example, the three UTF-8 encoded bytes of the European Euro synbol(€) are written over three separate operations:
+```
+const { StringDecoder } = require('string_decoder');
+const decoder = new StringDecoder('utf8');
+
+decoder.write(Buffer.from([0xE2]));
+decoder.write(Buffer.from([0x82]));
+console.log(decoder.end(Buffer.from([0xAC])));
+```
+[String Decoder](https://nodejs.org/api/string_decoder.html)
+
+### 24. What are the 5 major steps that the require function does?
+1. Check `Module._cache` for the cached module
+2. If cache is empty, create a new Module instance and save it to the cache
+3. Call `module.load()` with the given filename. This will call `module.compile()` after reading the file contents.
+4. If there was an error loading/parsing the file, delete the bad module from the cache
+5. return `module.exports`
+
+[The Node.js Way - How `require()` Actually Works](http://fredkschott.com/post/2014/06/require-and-the-module-system/)
+
