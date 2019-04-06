@@ -25,6 +25,13 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [15. What is libuv and how does Node.js use it?](https://github.com/khalid32/How-well-do-you-know-nodeJS#15-what-is-libuv-and-how-does-nodejs-use-it)
 - [16. How can you make Node’s REPL always use JavaScript strict mode?](https://github.com/khalid32/How-well-do-you-know-nodeJS#16-how-can-you-make-nodes-repl-always-use-javascript-strict-mode)
 - [17. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?](https://github.com/khalid32/How-well-do-you-know-nodeJS#17-how-can-we-do-one-final-operation-before-a-node-process-exits-can-that-operation-be-done-asynchronously)
+-
+- [19. What’s the problem with the process uncaughtException event? How is it different than the exit event?](https://github.com/khalid32/How-well-do-you-know-nodeJS#19-whats-the-problem-with-the-process-uncaughtexception-event-how-is-it-different-than-the-exit-event)
+- [20. Do Node buffers use V8 memory? Can they be resized?](https://github.com/khalid32/How-well-do-you-know-nodeJS#20-do-node-buffers-use-v8-memory-can-they-be-resized)
+- [21. What’s the difference between Buffer.alloc and Buffer.allocUnsafe?](https://github.com/khalid32/How-well-do-you-know-nodeJS#21-whats-the-difference-between-bufferalloc-and-bufferallocunsafe)
+- [22. How is the slice method on buffers different from that on arrays?](https://github.com/khalid32/How-well-do-you-know-nodeJS#22-how-is-the-slice-method-on-buffers-different-from-that-on-arrays)
+- [23. What is the string_decoder module useful for? How is it different than casting buffers to strings?](https://github.com/khalid32/How-well-do-you-know-nodeJS#23-what-is-the-string_decoder-module-useful-for-how-is-it-different-than-casting-buffers-to-strings)
+- [24. What are the 5 major steps that the require function does?](https://github.com/khalid32/How-well-do-you-know-nodeJS#24-what-are-the-5-major-steps-that-the-require-function-does)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
