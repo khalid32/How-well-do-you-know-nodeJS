@@ -304,6 +304,10 @@ process.on('exit', exitHandler.bind(null));
 ```
 Listener functions to the `exit` event must only perform synchronous operations. To perform asynchronous opertions, one can register a handler for `process.on('beforeExit')`.
 
+### 18. Besides V8 and libuv, what other external dependencies does Node have?
+There are tons of dependencies like `http-parser`, `c-ares`, `OpenSSL`, `zlib`
+You should check [NodeJS Dependencies](https://nodejs.org/en/docs/meta/topics/dependencies/)
+
 ### 19. What’s the problem with the process `uncaughtException` event? How is it different than the exit event?
 The `uncaughtException` event is emitted when an uncaught javascript exception bubbles all the way back to the event loop. Once this event emmits, it means that your application is in an undefined state and it is not safe to continue.
 > Hence this event should only be used to perform synchronous cleanup of resources, logging and shutting down the process.
