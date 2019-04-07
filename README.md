@@ -32,6 +32,9 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [22. How is the slice method on buffers different from that on arrays?](https://github.com/khalid32/How-well-do-you-know-nodeJS#22-how-is-the-slice-method-on-buffers-different-from-that-on-arrays)
 - [23. What is the string_decoder module useful for? How is it different than casting buffers to strings?](https://github.com/khalid32/How-well-do-you-know-nodeJS#23-what-is-the-string_decoder-module-useful-for-how-is-it-different-than-casting-buffers-to-strings)
 - [24. What are the 5 major steps that the require function does?](https://github.com/khalid32/How-well-do-you-know-nodeJS#24-what-are-the-5-major-steps-that-the-require-function-does)
+- [25. What is the `require.resolve` function and what is it useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#25-what-is-the-requireresolve-function-and-what-is-it-useful-for)
+- [26. What is the `main` property in `package.json` useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#26-what-is-the-main-property-in-packagejson-useful-for)
+- [27. What are circular modular dependencies in Node and how can they be avoided?](https://github.com/khalid32/How-well-do-you-know-nodeJS#27-what-are-circular-modular-dependencies-in-node-and-how-can-they-be-avoided)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
@@ -429,6 +432,8 @@ While circular dependencies may not directly result in bugs(they certainly can),
 > In [Node.js docs](https://nodejs.org/api/modules.html#modules_cycles), it says, "Careful planning is required to allow cyclic module dependencies to work correctly within an application."
 
 Circular dependencies are usually an indication of bad code design, and they should be refactored and removed if at all possible.
+
+[Eliminate Circular Dependencies from Your JavaScript Project](https://spin.atomicobject.com/2018/06/25/circular-dependencies-javascript/)
 
 **Two ways to avoid circular modular:**
 1. move the `require` statements from the top of the file to the point in code they're actually used. This will delay their execution, allowing for the exports to have been created property.
