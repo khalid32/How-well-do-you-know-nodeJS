@@ -373,3 +373,64 @@ console.log(decoder.end(Buffer.from([0xAC])));
 
 [The Node.js Way - How `require()` Actually Works](http://fredkschott.com/post/2014/06/require-and-the-module-system/)
 
+### 25. What is the `require.resolve` function and what is it useful for?
+If you only want to resolve the module and not execute it, you can use the `require.resolve` function. This behaves exactly the same as the main `require` function, but does not load the file. It will still throw an error if the file does not exist and it will return the full path to the file when found.
+This can be used for example, to check whether an optional package is installed or not and only use it when it's available.
+
+[Requiring modules in Node.js](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8)
+
+### 26. What is the `main` property in `package.json` useful for?
+###### package.json:
+The `package.json` file is core to the Node.js ecosystem and is a basic part of understanding and working with Node.js, npm and even modern JavaScript. The `package.json` is used as what equates to a manifest about applications, modules, packages, and more - it's a tool to that's used to make modern development streamlined, modular and efficient.
+
+###### the `main` property:
+The `main` property of a `package.json` is a direction to the entry point to the module that the `package.json` is describing. In a Node.js application, when the module is called via a require statement, the module's exports from the file named in the `main` property will be what's returned to the Node.js application.
+Inside your `package.json`, the `main` property, with an entry point of `app.js`, would look loke this:
+```
+"main": "app.js",
+```
+[The Basics of Package.json in Node.js and npm](https://nodesource.com/blog/the-basics-of-package-json-in-node-js-and-npm/)
+
+### 27. What are circular modular dependencies in Node and how can they be avoided?
+###### Circular dependencies:
+Circular dependencies(also known as cyclic dependencies) occur when two or more modules reference each other.
+
+This could be a direct reference(A -> B -> A):
+```
+// file a.js
+import { b } from 'b';
+...
+export a;
+
+// file b.js
+import { a } from 'a';
+...
+export b;
+```
+or indirect reference(A -> B -> C -> A):
+```
+// file a.js
+import { b } from 'b';
+...
+export a;
+
+// file b.js
+import { c } from 'c';
+...
+export b;
+
+// file c.js
+import { a } from 'a';
+...
+export c;
+```
+While circular dependencies may not directly result in bugs(they certainly can), they will almost always have unintended consequences.
+
+> In [Node.js docs](https://nodejs.org/api/modules.html#modules_cycles), it says, "Careful planning is required to allow cyclic module dependencies to work correctly within an application."
+
+Circular dependencies are usually an indication of bad code design, and they should be refactored and removed if at all possible.
+
+**Two ways to avoid circular modular:**
+1. move the `require` statements from the top of the file to the point in code they're actually used. This will delay their execution, allowing for the exports to have been created property.
+
+2. restructure the code. For example move the code that both modules depend on into a new module C and let both A and B depend on C.
