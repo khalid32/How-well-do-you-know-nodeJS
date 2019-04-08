@@ -35,6 +35,13 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [25. What is the `require.resolve` function and what is it useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#25-what-is-the-requireresolve-function-and-what-is-it-useful-for)
 - [26. What is the `main` property in `package.json` useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#26-what-is-the-main-property-in-packagejson-useful-for)
 - [27. What are circular modular dependencies in Node and how can they be avoided?](https://github.com/khalid32/How-well-do-you-know-nodeJS#27-what-are-circular-modular-dependencies-in-node-and-how-can-they-be-avoided)
+- [What is `require`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#important-what-is-require)
+- [28. What are the 3 file extensions that will be automatically tried by the require function?](https://github.com/khalid32/How-well-do-you-know-nodeJS#28-what-are-the-3-file-extensions-that-will-be-automatically-tried-by-the-require-function)
+- [29. When creating an http server and writing a response for a request, why is the end() function required?](https://github.com/khalid32/How-well-do-you-know-nodeJS#29-when-creating-an-http-server-and-writing-a-response-for-a-request-why-is-the-end-function-required)
+- [30. When is it ok to use the file system *Sync methods(like readFileSync)?](https://github.com/khalid32/How-well-do-you-know-nodeJS#30-when-is-it-ok-to-use-the-file-system-sync-methodslike-readfilesync)
+- [31. How can you print only one level of a deeply nested object?](https://github.com/khalid32/How-well-do-you-know-nodeJS#31-how-can-you-print-only-one-level-of-a-deeply-nested-object)
+- [32. What is the `node-gyp` package used for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#32-what-is-the-node-gyp-package-used-for)
+- [33. The objects exports, require, and module are all globally available in every module but they are different in every module. How?](https://github.com/khalid32/How-well-do-you-know-nodeJS#33-the-objects-exports-require-and-module-are-all-globally-available-in-every-module-but-they-are-different-in-every-module-how)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
