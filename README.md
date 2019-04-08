@@ -439,3 +439,87 @@ Circular dependencies are usually an indication of bad code design, and they sho
 1. move the `require` statements from the top of the file to the point in code they're actually used. This will delay their execution, allowing for the exports to have been created property.
 
 2. restructure the code. For example move the code that both modules depend on into a new module C and let both A and B depend on C.
+
+### IMPORTANT: What is `require`?
+Node.js follows the CommonJS module system, and the buildin require function is the easiest way to include modules that exist in separate files.
+The basic functionality is that it reads a JavaScript file, executes the file, and then proceeds to return the exports object.
+
+### 28. What are the 3 file extensions that will be automatically tried by the require function?
+
+`.js`, `.json` and `.node`.
+
+### 29. When creating an http server and writing a response for a request, why is the end() function required?
+Since the `res` object is a stream, we can write into it in several stages. the `end()` method indicates that we've finished writing into it and that the response is ready to be sent to the client.
+
+### 30. When is it ok to use the file system *Sync methods(like readFileSync)?
+###### Blocking:
+**Blocking** is when the execution of additional JavaScript in the Node.js process must wait until a non-JavaScript operation completes. This happens because the event loop is unable to continue running JavaScript while a **blocking** operation is occurring.
+Some methods also have blocking counterparts, which have names that end with `Sync`.
+
+[Overview of Blocking vs Non-Blocking](https://nodejs.org/ja/docs/guides/blocking-vs-non-blocking/)
+
+Every `fs` method in Node has a synchronous version. Why would you use a sync method instead of the async one?
+Sometimes using the sync method is fine. For example, it can be used in any initializing step while the server is still loading. It is often the case that everything you do after the initializing step depends on the data you obtain there. Instead of introducing a callback-level, using synchronous methods is acceptable as long as what you use the synchronous methods for is a one-time thing.
+However, if you are using synchronous methods inside a handler like an HTTP server on-request callback, that would simply be 100% wrong. DO NOT DO THAT.
+
+When it is OK to block the process while the synchronous operation takes place. For example, this may be valid when writing a CLI tool. It's most likely not OK when writing a server that should handle multiple clients concurrently.
+
+### 31. How can you print only one level of a deeply nested object?
+You can use the `util.inspect` method.
+```
+const obj = {
+    a: "a",
+    b: {
+        c: "c",
+        d: {
+            e: "e",
+            f: {
+                g: "g",
+            }
+        }
+    }
+};
+
+const util = require('util');
+console.log(util.inspect(obj, {depth: 0})); // prints: '{ a: \'a\', b: [Object]}'
+console.log(util.inspect(obj, {depth: null})); // prints: '{ a: \'a\', b: { c: \'c\', d: { e: \'e\', f: { g: \'g\' } } } }'
+```
+
+### 32. What is the `node-gyp` package used for?
+`node-gyp` is a cross-platform command-line tool written in Node.js for compiling native addon modules for Node.js. It bundles the gyp project used by the Chromium team and takes away the pain of dealing with the various differences in build platforms.
+
+`node-gyp` is a tool which compiles Node.js Addons. Node.js Addons are native Node.js Modules, written in C or C++, which therefore need to be compiled on your machine. After they are compiled with tools like node-gyp, their functionality can be accessed via `require()`, just as any other Node.js Module.
+If you do what you suggested the module won't work, you will need to compile it/build it with node-gyp on the system you moved the program to.
+
+[node-gyp](https://github.com/nodejs/node-gyp)
+[Node.js Addons](https://nodejs.org/api/addons.html)
+
+### 33. The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?
+###### 1. Require:
+`require` are used to consume modules. It allows you to include modules in your programs. You can add build-in core Node.js modules, community-based modules`(node_modules)` and local modules.
+```
+const fs = require('fs');
+
+fs.readFile('./file.txt', 'utf-8', (err, data) => {
+    if(err){ throw err; }
+    console.log('data: ', data);
+});
+```
+The `require` function will look for files in the following order:
+1. Built-in core Node.js modules(like `fs`)
+2. Modules in the `node_modules` folder.
+3. If the module name has a `./`, `/` or `../`, it will look for the directory/file in the given path. It matches the file extensions: `*.js`, `*.json` and `*.node`.
+
+###### 2. Exports:
+The `exports` keyword gives you the chance to "export" your own objects and methods.
+
+###### 3. Module Wrapper
+You can think of it as a self-contained function
+```
+(function(exports, require, module, __filename, __dirname){
+    module.exports = exports = {};
+
+    // You module code ...
+});
+```
+while `exports`, `require` and `module` appear to be global variables, they're actually specific to the module.
