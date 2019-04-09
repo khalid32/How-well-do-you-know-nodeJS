@@ -47,6 +47,9 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [36. What’s the difference between using event emitters and using simple callback functions to allow for asynchronous handling of code?](https://github.com/khalid32/How-well-do-you-know-nodeJS#36-whats-the-difference-between-using-event-emitters-and-using-simple-callback-functions-to-allow-for-asynchronous-handling-of-code)
 - [37. The `require` function always caches the module it requires. What can you do if you need to execute the code in a required module many times?](https://github.com/khalid32/How-well-do-you-know-nodeJS#37-the-require-function-always-caches-the-module-it-requires-what-can-you-do-if-you-need-to-execute-the-code-in-a-required-module-many-times)
 - [38. What’s the difference between the Paused and the Flowing modes of readable streams?](https://github.com/khalid32/How-well-do-you-know-nodeJS#38-whats-the-difference-between-the-paused-and-the-flowing-modes-of-readable-streams)
+- [39. What does the `--inspect` argument do for the node command](https://github.com/khalid32/How-well-do-you-know-nodeJS#39-what-does-the---inspect-argument-do-for-the-node-command)
+- [40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?](https://github.com/khalid32/How-well-do-you-know-nodeJS#40-when-working-with-streams-when-do-you-use-the-pipe-function-and-when-do-you-use-events-can-those-two-methods-be-combined)
+
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
