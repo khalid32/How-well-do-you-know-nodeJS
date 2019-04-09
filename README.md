@@ -16,7 +16,7 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [6. What is the difference between `setImmediate` and `process.nextTick`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#3-can-we-require-local-files-without-using-relative-paths)
 - [7. How do you make an asynchronous function return a value?](https://github.com/khalid32/How-well-do-you-know-nodeJS#7-how-do-you-make-an-asynchronous-function-return-a-value)
 - [8. Can callbacks be used with promises or is it one way or the other?](https://github.com/khalid32/How-well-do-you-know-nodeJS#8-can-callbacks-be-used-with-promises-or-is-it-one-way-or-the-other)
-- [9. What are the major differences between spawn, exec, and fork?](https://github.com/khalid32/How-well-do-you-know-nodeJS#9-what-are-the-major-differences-between-spawn-exec-and-fork)
+- [9. What are the major differences between `spawn`, `exec`, and `fork`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#9-what-are-the-major-differences-between-spawn-exec-and-fork)
 - [10. How does the cluster module work? How is it different than using a load balancer?](https://github.com/khalid32/How-well-do-you-know-nodeJS#10-how-does-the-cluster-module-work-how-is-it-different-than-using-a-load-balancer)
 - [11. What are the --harmony flags?](https://github.com/khalid32/How-well-do-you-know-nodeJS#11-what-are-the---harmony-flags)
 - [12. How can you read and inspect the memory usage of a Node.js process?](https://github.com/khalid32/How-well-do-you-know-nodeJS#12-how-can-you-read-and-inspect-the-memory-usage-of-a-nodejs-process)
@@ -50,6 +50,12 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [39. What does the `--inspect` argument do for the node command](https://github.com/khalid32/How-well-do-you-know-nodeJS#39-what-does-the---inspect-argument-do-for-the-node-command)
 - [40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?](https://github.com/khalid32/How-well-do-you-know-nodeJS#40-when-working-with-streams-when-do-you-use-the-pipe-function-and-when-do-you-use-events-can-those-two-methods-be-combined)
 
+###### MORE QUESTIONS...
+- [41. What is the relationship between Node.js and V8? Can Node work without V8?]
+- [42. Can different versions of the same package be used in the same application?]
+- [43. What Node module is implemented by most other Node modules?]
+- [44. What is process.argv? What type of data does it hold?]
+- [45. What are some of the built-in dot commands that you can use in Node’s REPL?]
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
@@ -610,3 +616,36 @@ see [code example](https://www.guru99.com/node-js-streams-filestream-pipes.html#
 ```
 essentialy it means that `.pipe()` takes care of listening for `data` and events from `src`. So, to answer the questions, using `.pipe()` can make the code more straight forward when this is the functionaly you're interested in.
 Events can be used to tailor more specific functionaly for your use case.
+
+### 41. What is the relationship between Node.js and V8? Can Node work without V8?
+###### What is the relationship between Node.js and V8?:
+V8 is the JavaScript engine inside of node.js that parses and runs your JavaScript. The same V8 engine is used inside of Chrome to run javascript in the Chrome browser. Google open-sourced the V8 engine and the builders of node.js used it to run JavaScript in node.js.
+
+###### Can Node work without V8?:
+NO...
+The current node.js binary cannot work without V8. It would have no JavaScript engine and thus no ability to run code which would obviously render it non-functional. Node.js was not designed to run with any other JavaScript engine and, in fact, all the native code bindings that come with node.js(such as the `fs` module or the net module) all rely on the specific V8 interface between C++ and JavaScript.
+
+### 42. Can different versions of the same package be used in the same application?
+No, this is currently prevented by NPM. see [this issue](https://github.com/npm/npm/issues/2943).
+
+### 43. What Node module is implemented by most other Node modules?
+`express` is one of the most commonly used Node.js module
+
+### 44. What is process.argv? What type of data does it hold?
+The `process.argv` property returns an array containing the command line arguments passed when the Node.js process was launched.
+The first element will be `process.execPath`.
+The second element will be the path to the JavaScript file being executed.
+The remaining elements will be any additional command line arguments.
+
+### 45. What are some of the built-in dot commands that you can use in Node’s REPL?
+Node REPL supports special commands which starts with a dot `.`. Type a . and press double tab to see a list of dot commands.
+
+- `.load` - Load command can be used to load a JavaScript file into current REPL session. After the file is loaded, all the functions, variables defined in the file would be available in current REPL session.
+- `.break & .clear` - Break & Clear command can be used to terminate & come out of a multi line session. Sometimes while copy pasting code snippet into REPL, we get stuck. We can type `.break` to terminate a multi-line session in such cases and get back to REPL prompt.
+Clear is just an alias for break command.
+- `.editor` - Editor command will get us into editor mode. Editor mode is a convenient alternative to creating and loading a JavaScript file into current session. It allows us to write multiple lines code quite conveniently compare to default multi-line mode.
+Press `Ctrl+D` to finish multi-line editing and `Ctrl+C` to cancel editing.
+- `.save` - Save command would save entire session history to a file. This could be useful after a long REPL session.
+- `.exit` - Exit command will terminate the REPL session. By default to exit the current session, we need to press `Ctrl+C` twice. By typing `.exit` will directly exit the session.
+
+[Know Your Node REPL](https://hackernoon.com/know-node-repl-better-dbd15bca0af6)
