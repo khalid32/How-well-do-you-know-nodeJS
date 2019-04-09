@@ -581,3 +581,29 @@ The cache in which modules are cached in is accessible using `require.cache`. Th
 
 ### 38. What’s the difference between the Paused and the Flowing modes of readable streams?
 Readable streams operate in either *paused* or *flowing* modes. When is *flowing* mode, data is read from the underlying system automatically and provided to an application as quickly as possible using events via the EventEmitter interface. In *paused* mode, the `stream.read()` method must be called explicitly to read chunks of data from the stream.
+
+### 39. What does the `--inspect` argument do for the node command?
+V8 Inspector integration allows attaching Chrome DevTools to Node.js instances for debugging and profiling. It uses the [Chrome DevTool Protocol](https://chromedevtools.github.io/devtools-protocol/)
+
+V8 Inspector can be enabled by passing the `--inspect` flag when starting a Node.js application. It is also possible to supply a custom port with that flag *e.g.* `--inspect=9222` will accept DevTools connections on port 9222.
+
+### 40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?
+###### Pipes in Node.js:
+Within Node applications, streams can be piped together using the pipe() method, which takes two arguments:
+- A required writable stream that acts as the destination for the data.
+- An optional object used to pass in options.
+
+see [code example](https://www.guru99.com/node-js-streams-filestream-pipes.html#9)
+
+###### Events in Node.js:
+Events are one of the key concepts in Node.js and sometimes Node.js is referred to as an Event-Driven framework.
+Basically, an event is something that happens. For example, if a connection is established to a database, then the database connection event is triggered. Event driven programming is to create function that will be triggered when specific events are triggered.
+
+see [code example](https://www.guru99.com/node-js-streams-filestream-pipes.html#10)
+
+`.pipe()` is a function that takes a readable source stream `src` and hooks the output to a destination writable stream `dst`
+```
+    src.pipe(dst)
+```
+essentialy it means that `.pipe()` takes care of listening for `data` and events from `src`. So, to answer the questions, using `.pipe()` can make the code more straight forward when this is the functionaly you're interested in.
+Events can be used to tailor more specific functionaly for your use case.
