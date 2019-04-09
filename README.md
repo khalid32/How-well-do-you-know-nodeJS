@@ -530,3 +530,49 @@ You can think of it as a self-contained function
 });
 ```
 while `exports`, `require` and `module` appear to be global variables, they're actually specific to the module.
+
+### 34. How can a module be both requirable by other modules and executable directly using the node command?
+###### Module:
+A module is a discrete program, contained in a single file in Node.js. Modules are therefore tied to files, with one module per file. Modules are available in other programming languages. Node.js uses the CommonJS system of modules, but there are other module types used in the JavaScript ecosystem. The most prominent of these other module systems are the Asynchronous Module Definition(AMD) and the (ECMAScript 6) ES6 module systems.
+
+###### module.exports:
+`module.exports` is an object that the current module returns when it is "required" in another program or module.
+
+[How to use module.exports in Node.js](https://stackabuse.com/how-to-use-module-exports-in-node-js/)
+
+A module can detect it its being requirable or executed directly by inspecting the `require.main` value:
+```
+if(require.main == module){
+    console.log('called directly.');
+}else{
+    console.log('required as a module.');
+}
+```
+###### Accessing the main module:
+When a flie is run directly from Node.js, `require.main` is set to its `module`. That means that it is possible to determine whether a file has been run directly by testing `require.main === module`.
+For a file `foo.js`, this will be `true` if run via `node foo.js`, but `false` if run by `require('./foo')`.
+Because `module` provides a `filename` property(normally equivalent to `__filename`), the entry point of the current application can be obtained by checking `require.main.filename`.
+
+### 35. What’s an example of a built-in stream in Node that is both readable and writable?
+###### Streams:
+Streams are collections of data - just like arrays or strings. The difference is that streams might not be available all at once and they don't have to fit in memory. This makes streams really powerful when working with large amounts of data, or data that's coming from an external source one **chuck** at a time.
+
+[Node’s Streams](https://jscomplete.com/learn/node-beyond-basics/node-streams)
+
+###### duplex stream:
+A duplex stream is a stream that implements both a readable and a writable. These streams allow data to pass through. Readable streams will pipe data inso a duplex stream, and the duplex stream can also write that data. So duplex stream represent the middle sections of pipelines.
+
+`net.Socket` is an example for a Duplex(both readable and writable) stream.
+
+### 36. What’s the difference between using event emitters and using simple callback functions to allow for asynchronous handling of code?
+The biggest difference between using callbacks and using event emitters is that callbacks directly couples the original function and the callback, whereas using event emitters can let you keep the calling function and the callback separate.
+
+An event handler is a callback to an event that occured like a mouse click. More specifically, an event handler is the callback method that is passed into a event listener. When the listener is triggered, it fires its callback or in this case, the event handler.
+
+Callbacks methods do not need to be associated with events. In fact, generally speaking, when someone uses the term callback, they are referring to a function that gets passed as a parameter into a method which is fired when the method completes.
+
+### 37. The `require` function always caches the module it requires. What can you do if you need to execute the code in a required module many times?
+The cache in which modules are cached in is accessible using `require.cache`. Thus, if you delete a module key from `require.cache`, the next time you require it will reload it(and will execute the code in it again).
+
+### 38. What’s the difference between the Paused and the Flowing modes of readable streams?
+Readable streams operate in either *paused* or *flowing* modes. When is *flowing* mode, data is read from the underlying system automatically and provided to an application as quickly as possible using events via the EventEmitter interface. In *paused* mode, the `stream.read()` method must be called explicitly to read chunks of data from the stream.
