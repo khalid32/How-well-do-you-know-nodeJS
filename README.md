@@ -42,6 +42,11 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [31. How can you print only one level of a deeply nested object?](https://github.com/khalid32/How-well-do-you-know-nodeJS#31-how-can-you-print-only-one-level-of-a-deeply-nested-object)
 - [32. What is the `node-gyp` package used for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#32-what-is-the-node-gyp-package-used-for)
 - [33. The objects exports, require, and module are all globally available in every module but they are different in every module. How?](https://github.com/khalid32/How-well-do-you-know-nodeJS#33-the-objects-exports-require-and-module-are-all-globally-available-in-every-module-but-they-are-different-in-every-module-how)
+- [34. How can a module be both requirable by other modules and executable directly using the node command?](https://github.com/khalid32/How-well-do-you-know-nodeJS#34-how-can-a-module-be-both-requirable-by-other-modules-and-executable-directly-using-the-node-command)
+- [35. What’s an example of a built-in stream in Node that is both readable and writable?](https://github.com/khalid32/How-well-do-you-know-nodeJS#35-whats-an-example-of-a-built-in-stream-in-node-that-is-both-readable-and-writable)
+- [36. What’s the difference between using event emitters and using simple callback functions to allow for asynchronous handling of code?](https://github.com/khalid32/How-well-do-you-know-nodeJS#36-whats-the-difference-between-using-event-emitters-and-using-simple-callback-functions-to-allow-for-asynchronous-handling-of-code)
+- [37. The `require` function always caches the module it requires. What can you do if you need to execute the code in a required module many times?](https://github.com/khalid32/How-well-do-you-know-nodeJS#37-the-require-function-always-caches-the-module-it-requires-what-can-you-do-if-you-need-to-execute-the-code-in-a-required-module-many-times)
+- [38. What’s the difference between the Paused and the Flowing modes of readable streams?](https://github.com/khalid32/How-well-do-you-know-nodeJS#38-whats-the-difference-between-the-paused-and-the-flowing-modes-of-readable-streams)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
