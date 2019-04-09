@@ -51,11 +51,11 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?](https://github.com/khalid32/How-well-do-you-know-nodeJS#40-when-working-with-streams-when-do-you-use-the-pipe-function-and-when-do-you-use-events-can-those-two-methods-be-combined)
 
 ###### MORE QUESTIONS...
-- [41. What is the relationship between Node.js and V8? Can Node work without V8?]
-- [42. Can different versions of the same package be used in the same application?]
-- [43. What Node module is implemented by most other Node modules?]
-- [44. What is process.argv? What type of data does it hold?]
-- [45. What are some of the built-in dot commands that you can use in Node’s REPL?]
+- [41. What is the relationship between Node.js and V8? Can Node work without V8?](https://github.com/khalid32/How-well-do-you-know-nodeJS#41-what-is-the-relationship-between-nodejs-and-v8-can-node-work-without-v8)
+- [42. Can different versions of the same package be used in the same application?](https://github.com/khalid32/How-well-do-you-know-nodeJS#42-can-different-versions-of-the-same-package-be-used-in-the-same-application)
+- [43. What Node module is implemented by most other Node modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#43-what-node-module-is-implemented-by-most-other-node-modules)
+- [44. What is process.argv? What type of data does it hold?](https://github.com/khalid32/How-well-do-you-know-nodeJS#44-what-is-processargv-what-type-of-data-does-it-hold)
+- [45. What are some of the built-in dot commands that you can use in Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#45-what-are-some-of-the-built-in-dot-commands-that-you-can-use-in-nodes-repl)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
