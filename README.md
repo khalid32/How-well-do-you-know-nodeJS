@@ -56,10 +56,10 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [43. What Node module is implemented by most other Node modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#43-what-node-module-is-implemented-by-most-other-node-modules)
 - [44. What is process.argv? What type of data does it hold?](https://github.com/khalid32/How-well-do-you-know-nodeJS#44-what-is-processargv-what-type-of-data-does-it-hold)
 - [45. What are some of the built-in dot commands that you can use in Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#45-what-are-some-of-the-built-in-dot-commands-that-you-can-use-in-nodes-repl)
-- [46. What does the _ mean inside of Node’s REPL?]()
-- [47. How can you check for the existence of a local module?]()
-- [48. If you execute a node script file that has the single line: `console.log(arguments);`, what exactly will node print?]()
-- [49. What happens when the line cluster.fork() gets executed in a Node script]()
+- [46. What does the _ mean inside of Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#46-what-does-the-_-mean-inside-of-nodes-repl)
+- [47. How can you check for the existence of a local module?](https://github.com/khalid32/How-well-do-you-know-nodeJS#47-how-can-you-check-for-the-existence-of-a-local-module)
+- [48. If you execute a node script file that has the single line: `console.log(arguments);`, what exactly will node print?](https://github.com/khalid32/How-well-do-you-know-nodeJS#48-if-you-execute-a-node-script-file-that-has-the-single-line-consolelogarguments-what-exactly-will-node-print)
+- [49. What happens when the line cluster.fork() gets executed in a Node script?](https://github.com/khalid32/How-well-do-you-know-nodeJS#49-what-happens-when-the-line-clusterfork-gets-executed-in-a-node-script)
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
