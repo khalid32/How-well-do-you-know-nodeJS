@@ -26,23 +26,23 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [16. How can you make Node’s REPL always use JavaScript strict mode?](https://github.com/khalid32/How-well-do-you-know-nodeJS#16-how-can-you-make-nodes-repl-always-use-javascript-strict-mode)
 - [17. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?](https://github.com/khalid32/How-well-do-you-know-nodeJS#17-how-can-we-do-one-final-operation-before-a-node-process-exits-can-that-operation-be-done-asynchronously)
 - [18. Besides V8 and libuv, what other external dependencies does Node have?](https://github.com/khalid32/How-well-do-you-know-nodeJS#18-besides-v8-and-libuv-what-other-external-dependencies-does-node-have)
-- [19. What’s the problem with the process uncaughtException event? How is it different than the exit event?](https://github.com/khalid32/How-well-do-you-know-nodeJS#19-whats-the-problem-with-the-process-uncaughtexception-event-how-is-it-different-than-the-exit-event)
+- [19. What’s the problem with the process `uncaughtException` event? How is it different than the `exit` event?](https://github.com/khalid32/How-well-do-you-know-nodeJS#19-whats-the-problem-with-the-process-uncaughtexception-event-how-is-it-different-than-the-exit-event)
 - [20. Do Node buffers use V8 memory? Can they be resized?](https://github.com/khalid32/How-well-do-you-know-nodeJS#20-do-node-buffers-use-v8-memory-can-they-be-resized)
-- [21. What’s the difference between Buffer.alloc and Buffer.allocUnsafe?](https://github.com/khalid32/How-well-do-you-know-nodeJS#21-whats-the-difference-between-bufferalloc-and-bufferallocunsafe)
-- [22. How is the slice method on buffers different from that on arrays?](https://github.com/khalid32/How-well-do-you-know-nodeJS#22-how-is-the-slice-method-on-buffers-different-from-that-on-arrays)
-- [23. What is the string_decoder module useful for? How is it different than casting buffers to strings?](https://github.com/khalid32/How-well-do-you-know-nodeJS#23-what-is-the-string_decoder-module-useful-for-how-is-it-different-than-casting-buffers-to-strings)
+- [21. What’s the difference between `Buffer.alloc` and `Buffer.allocUnsafe`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#21-whats-the-difference-between-bufferalloc-and-bufferallocunsafe)
+- [22. How is the `slice` method on buffers different from that on arrays?](https://github.com/khalid32/How-well-do-you-know-nodeJS#22-how-is-the-slice-method-on-buffers-different-from-that-on-arrays)
+- [23. What is the `string_decoder` module useful for? How is it different than casting buffers to strings?](https://github.com/khalid32/How-well-do-you-know-nodeJS#23-what-is-the-string_decoder-module-useful-for-how-is-it-different-than-casting-buffers-to-strings)
 - [24. What are the 5 major steps that the require function does?](https://github.com/khalid32/How-well-do-you-know-nodeJS#24-what-are-the-5-major-steps-that-the-require-function-does)
 - [25. What is the `require.resolve` function and what is it useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#25-what-is-the-requireresolve-function-and-what-is-it-useful-for)
 - [26. What is the `main` property in `package.json` useful for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#26-what-is-the-main-property-in-packagejson-useful-for)
 - [27. What are circular modular dependencies in Node and how can they be avoided?](https://github.com/khalid32/How-well-do-you-know-nodeJS#27-what-are-circular-modular-dependencies-in-node-and-how-can-they-be-avoided)
 - [What is `require`?](https://github.com/khalid32/How-well-do-you-know-nodeJS#important-what-is-require)
 - [28. What are the 3 file extensions that will be automatically tried by the require function?](https://github.com/khalid32/How-well-do-you-know-nodeJS#28-what-are-the-3-file-extensions-that-will-be-automatically-tried-by-the-require-function)
-- [29. When creating an http server and writing a response for a request, why is the end() function required?](https://github.com/khalid32/How-well-do-you-know-nodeJS#29-when-creating-an-http-server-and-writing-a-response-for-a-request-why-is-the-end-function-required)
-- [30. When is it ok to use the file system *Sync methods(like readFileSync)?](https://github.com/khalid32/How-well-do-you-know-nodeJS#30-when-is-it-ok-to-use-the-file-system-sync-methodslike-readfilesync)
+- [29. When creating an http server and writing a response for a request, why is the `end()` function required?](https://github.com/khalid32/How-well-do-you-know-nodeJS#29-when-creating-an-http-server-and-writing-a-response-for-a-request-why-is-the-end-function-required)
+- [30. When is it ok to use the file system `*Sync` methods(like readFileSync)?](https://github.com/khalid32/How-well-do-you-know-nodeJS#30-when-is-it-ok-to-use-the-file-system-sync-methodslike-readfilesync)
 - [31. How can you print only one level of a deeply nested object?](https://github.com/khalid32/How-well-do-you-know-nodeJS#31-how-can-you-print-only-one-level-of-a-deeply-nested-object)
 - [32. What is the `node-gyp` package used for?](https://github.com/khalid32/How-well-do-you-know-nodeJS#32-what-is-the-node-gyp-package-used-for)
-- [33. The objects exports, require, and module are all globally available in every module but they are different in every module. How?](https://github.com/khalid32/How-well-do-you-know-nodeJS#33-the-objects-exports-require-and-module-are-all-globally-available-in-every-module-but-they-are-different-in-every-module-how)
-- [34. How can a module be both requirable by other modules and executable directly using the node command?](https://github.com/khalid32/How-well-do-you-know-nodeJS#34-how-can-a-module-be-both-requirable-by-other-modules-and-executable-directly-using-the-node-command)
+- [33. The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?](https://github.com/khalid32/How-well-do-you-know-nodeJS#33-the-objects-exports-require-and-module-are-all-globally-available-in-every-module-but-they-are-different-in-every-module-how)
+- [34. How can a module be both requirable by other modules and executable directly using the `node` command?](https://github.com/khalid32/How-well-do-you-know-nodeJS#34-how-can-a-module-be-both-requirable-by-other-modules-and-executable-directly-using-the-node-command)
 - [35. What’s an example of a built-in stream in Node that is both readable and writable?](https://github.com/khalid32/How-well-do-you-know-nodeJS#35-whats-an-example-of-a-built-in-stream-in-node-that-is-both-readable-and-writable)
 - [36. What’s the difference between using event emitters and using simple callback functions to allow for asynchronous handling of code?](https://github.com/khalid32/How-well-do-you-know-nodeJS#36-whats-the-difference-between-using-event-emitters-and-using-simple-callback-functions-to-allow-for-asynchronous-handling-of-code)
 - [37. The `require` function always caches the module it requires. What can you do if you need to execute the code in a required module many times?](https://github.com/khalid32/How-well-do-you-know-nodeJS#37-the-require-function-always-caches-the-module-it-requires-what-can-you-do-if-you-need-to-execute-the-code-in-a-required-module-many-times)
@@ -56,6 +56,10 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [43. What Node module is implemented by most other Node modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#43-what-node-module-is-implemented-by-most-other-node-modules)
 - [44. What is process.argv? What type of data does it hold?](https://github.com/khalid32/How-well-do-you-know-nodeJS#44-what-is-processargv-what-type-of-data-does-it-hold)
 - [45. What are some of the built-in dot commands that you can use in Node’s REPL?](https://github.com/khalid32/How-well-do-you-know-nodeJS#45-what-are-some-of-the-built-in-dot-commands-that-you-can-use-in-nodes-repl)
+- [46. What does the _ mean inside of Node’s REPL?]()
+- [47. How can you check for the existence of a local module?]()
+- [48. If you execute a node script file that has the single line: `console.log(arguments);`, what exactly will node print?]()
+- [49. What happens when the line cluster.fork() gets executed in a Node script]()
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
@@ -649,3 +653,49 @@ Press `Ctrl+D` to finish multi-line editing and `Ctrl+C` to cancel editing.
 - `.exit` - Exit command will terminate the REPL session. By default to exit the current session, we need to press `Ctrl+C` twice. By typing `.exit` will directly exit the session.
 
 [Know Your Node REPL](https://hackernoon.com/know-node-repl-better-dbd15bca0af6)
+
+### 46. What does the `_` mean inside of Node’s REPL?
+`_` symbol returns the result of the last logged expression in REPL node console:
+```
+> 2 * 2
+4
+> _
+4
+```
+In 6.x and higher versions of node this behavior can be disabled by setting value to `_` explicitly:
+```
+> ['a', 'b', 'c']
+['a', 'b', 'c']
+> _.length
+3
+> _ += 1
+Expression assignment to _ noew disabled.
+4
+> 1 + 1
+2
+> _
+4
+```
+
+### 47. How can you check for the existence of a local module?
+Require is a synchronous operation so you can just wrap it in a try/catch
+```
+try{
+    var m - require('/home/test_node_project/per');
+    // do stuff
+}catch(ex){
+    handleErr(ex);
+}
+```
+
+### 48. If you execute a node script file that has the single line: `console.log(arguments);`, what exactly will node print?
+The module code is an invocation of a function taking `exports`, `require`, `module`, `__filename` and `__dirname` as arguments, so these arguments will be printed.
+
+### 49. What happens when the line cluster.fork() gets executed in a Node script?
+###### Cluster:
+Node.js runs in a single thread. While it's still very fast in most cases, this really doesn't take advantage of multiple processors if they're available. The Cluster module allows you to create a small network of separate processes which can share server ports; this gives your Node.js app access to the full power of your server.
+[Node.js Cluster and Express](https://rowanmanning.com/posts/node-cluster-and-express/)
+
+[cluster.fork():](https://millermedeiros.github.io/mdoc/examples/node_api/doc/cluster.html)
+Spawn a new worker process. This can only be called from the master process.
+The difference between `cluster.fork()` and `child_process.fork()` is simply that cluster allows TCP servers to be shared between workers. `cluster.fork` is implemented on top of `child_process.fork` is available with `cluster` as well.
