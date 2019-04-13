@@ -276,7 +276,7 @@ V8 object is a native, C++ representation of a JavaScript object. It is a essent
 Note that: A JavaScript function, is a first class object.
 It can be called, can be called as a constructor(instanced), which will create a prototype chain if needed, and the function object itself can hold functions and variables.
 All this translates directly into native code, where a `v8::FunctionTemplate` object(or `interface_template`), exposes two methods returning a `Local<ObjectTemplate>`:
-```
+```javascript
 // prototype function template
 Local<ObjectTeplate> prototype_t = interface_t->PrototypeTemplate();
 
