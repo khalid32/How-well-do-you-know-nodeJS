@@ -63,7 +63,7 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 
 ### 1. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
 A module's code is wrapped by a function wrapper that looks like the following
-```
+```javascript
 (function(exports, require, module, __filename, __dirname){
     // module code
 })
@@ -73,7 +73,7 @@ In node, the top-level scope is not the golbal scope; `var something` inside a N
 
 ### 2. When exporting the API of a Node module, why can we sometimes use `exports` and other times we have to use `module.exports`?
 To understand the difference, we can look at this simplified view of a JavaScripe file in Node.js:
-```
+```javascript
 var module = { exports: {} };
 var exports = module.exports;
 
@@ -91,11 +91,11 @@ There are several options, but my favourites are these:
 
 ###### 1. The Alias
 - Install the [module-alias](https://www.npmjs.com/package/module-alias) package
-```
+```bash
 npm i --save module-alias
 ```
 - Add paths to your `package.json` like this:
-```
+```json
 {
     "_moduleAliases": {
         "@lib": "app/lib",
@@ -104,35 +104,35 @@ npm i --save module-alias
 }
 ```
 - In your entry-point file, before any `require()` calls:
-```
+```javascript
 require('module-alias/register')
 ```
 - You can now require files like this:
-```
+```javascript
 const Article = require('@models/article');
 ```
 
 ###### 2. The Global
 - In your entry-point file, before any `require()` calls:
-```
+```javascript
 global.__base = __dirname + '/';
 ```
 - In your very/far/away/module.js
-```
+```javascript
 const Article = require(`${__base}app/models/article`);
 ```
 
 ###### 3. The Module
 - Install some module:
-```
+```bash
 npm install app-module-path --save
 ```
 - In your entry-point file, before any `require()` calls:
-```
+```javascript
 require('app-module-path').addPath(`${__dirname}/app`);
 ```
 - In your very/far/away/module.js
-```
+```javascript
 const Article = require('models/article');
 ```
 
@@ -163,7 +163,7 @@ When a function is invoked(called), the function, its parameters and variables a
 `setImmediate` and `process.nextTick` are two options to postpone code execution.
 
 ###### setImmediate
-```
+```javascript
 setImmediate(function(){
     console.log('PrintIn');
 })
@@ -186,7 +186,7 @@ However, in order to dig deper, we first need to be familiar with one of **node'
 > Note that, it is not possible to return from an asynchronous call inside a synchronous method.
 
 you need to pass a callback that will receive the return value.
-```
+```javascript
 function foo(address, fn){
     geocoder.geocode({'address': address}, function(result, status){
         fn(result[0].geometry.location);
@@ -205,7 +205,7 @@ foo("address", function(location){
 Callbacks are not interchangeable with Promises. This means that callback-based APIs cannot be used as Promises. The main difference with callback-based APIs is it does not return a value, it just executes the callback with the result.
 
 But in NodeJS, both can be used together. For example, the following method calls a callback and returns a promise:
-```
+```javascript
 function foo(cb){
     // do some processing
     if(cb){
@@ -302,7 +302,7 @@ libuv is written in C, but it uses some OO(Object Oriented) trick in things like
 If you want to use [strict mode](http://2ality.com/2011/01/javascripts-strict-mode-summary.html) in the [Node.js REPL](https://nodejs.org/api/repl.html), you have two options.
 
 **Option 1.** Start the REPL as usual, wrap your code in an [IIFE](http://2ality.com/2011/02/javascript-variable-scoping-and-its.html):
-```
+```javascript
 (function(){
     'use strict';
     'abc'.length = 1
@@ -312,18 +312,18 @@ If you want to use [strict mode](http://2ality.com/2011/01/javascripts-strict-mo
 (Assigning to a read-only property fails silently in sloppy mode.)
 
 **Option 2.** Use the Node.js command line option `--use_strict`:
-```
+```bash
 node --use_strict
 ```
 Afterwards, everything you write in the REPL is interpreted in strict mode:
-```
+```javascript
 'abc'.length = 1
 // TypeError: Cannot assign to read only property 'length'
 ```
 
 ### 17. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?
 By registering a handler for `process.on('exit')`:
-```
+```javascript
 function exitHandler(options, err){
     console.log('clean');
 }
@@ -365,11 +365,11 @@ The `Array.prototype.slice()` method returns a shallow copy of a portion of an a
 
 ### 23. What is the string_decoder module useful for? How is it different than casting buffers to strings?
 The `string_decoder` module provides an API for decoding `Buffer` objects into strings in a manner that preserves encoded multi-byte UTF-8 and UTF-16 characters. It can be accessed using:
-```
+```javascript
 const { StringDecoder } = require('string_decoder');
 ```
 The following example shows the basic use of the `StringDecoder` class.
-```
+```javascript
 const { StringDecoder } = require('string_decoder');
 const decoder = new StringDecoder('utf8');
 
@@ -382,7 +382,7 @@ console.log(decoder.write(euro));
 When a `Buffer` instance is written to the `StringDecoder` instance, an internal buffer is used to ensure that the decoder string does not contain any incomplete multibyte characters. These are held in the buffer until the next call to `stringDecoder.write` or until `stringDecoder.end()` is called.
 
 In the following example, the three UTF-8 encoded bytes of the European Euro synbol(€) are written over three separate operations:
-```
+```javascript
 const { StringDecoder } = require('string_decoder');
 const decoder = new StringDecoder('utf8');
 
@@ -424,7 +424,7 @@ Inside your `package.json`, the `main` property, with an entry point of `app.js`
 Circular dependencies(also known as cyclic dependencies) occur when two or more modules reference each other.
 
 This could be a direct reference(A -> B -> A):
-```
+```javascript
 // file a.js
 import { b } from 'b';
 ...
@@ -436,7 +436,7 @@ import { a } from 'a';
 export b;
 ```
 or indirect reference(A -> B -> C -> A):
-```
+```javascript
 // file a.js
 import { b } from 'b';
 ...
@@ -491,7 +491,7 @@ When it is OK to block the process while the synchronous operation takes place. 
 
 ### 31. How can you print only one level of a deeply nested object?
 You can use the `util.inspect` method.
-```
+```javascript
 const obj = {
     a: "a",
     b: {
@@ -522,7 +522,7 @@ If you do what you suggested the module won't work, you will need to compile it/
 ### 33. The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?
 ###### 1. Require:
 `require` are used to consume modules. It allows you to include modules in your programs. You can add build-in core Node.js modules, community-based modules`(node_modules)` and local modules.
-```
+```javascript
 const fs = require('fs');
 
 fs.readFile('./file.txt', 'utf-8', (err, data) => {
@@ -540,7 +540,7 @@ The `exports` keyword gives you the chance to "export" your own objects and meth
 
 ###### 3. Module Wrapper
 You can think of it as a self-contained function
-```
+```javascript
 (function(exports, require, module, __filename, __dirname){
     module.exports = exports = {};
 
@@ -559,7 +559,7 @@ A module is a discrete program, contained in a single file in Node.js. Modules a
 [How to use module.exports in Node.js](https://stackabuse.com/how-to-use-module-exports-in-node-js/)
 
 A module can detect it its being requirable or executed directly by inspecting the `require.main` value:
-```
+```javascript
 if(require.main == module){
     console.log('called directly.');
 }else{
@@ -615,7 +615,7 @@ Basically, an event is something that happens. For example, if a connection is e
 see [code example](https://www.guru99.com/node-js-streams-filestream-pipes.html#10)
 
 `.pipe()` is a function that takes a readable source stream `src` and hooks the output to a destination writable stream `dst`
-```
+```javascript
     src.pipe(dst)
 ```
 essentialy it means that `.pipe()` takes care of listening for `data` and events from `src`. So, to answer the questions, using `.pipe()` can make the code more straight forward when this is the functionaly you're interested in.
@@ -656,14 +656,14 @@ Press `Ctrl+D` to finish multi-line editing and `Ctrl+C` to cancel editing.
 
 ### 46. What does the `_` mean inside of Node’s REPL?
 `_` symbol returns the result of the last logged expression in REPL node console:
-```
+```bash
 > 2 * 2
 4
 > _
 4
 ```
 In 6.x and higher versions of node this behavior can be disabled by setting value to `_` explicitly:
-```
+```bash
 > ['a', 'b', 'c']
 ['a', 'b', 'c']
 > _.length
@@ -679,7 +679,7 @@ Expression assignment to _ noew disabled.
 
 ### 47. How can you check for the existence of a local module?
 Require is a synchronous operation so you can just wrap it in a try/catch
-```
+```javascript
 try{
     var m - require('/home/test_node_project/per');
     // do stuff
