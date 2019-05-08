@@ -68,7 +68,7 @@ A module's code is wrapped by a function wrapper that looks like the following
     // module code
 })
 ```
-This wrapping allows to keeps top-level variables (defined with var, const or let) scoped to the module, rather than to the global object.
+This wrapping allows to keep top-level variables (defined with `var`, `const` or `let`) scoped to the module, rather than to the global object.
 In node, the top-level scope is not the golbal scope; `var something` inside a Node module will be **local to that module**.
 
 ### 2. When exporting the API of a Node module, why can we sometimes use `exports` and other times we have to use `module.exports`?
@@ -82,14 +82,14 @@ var exports = module.exports;
 return module.exports;
 ```
 
-so, `exports` is initially an alias to `module.exports`. If you want to simply export an object with named fields, you can use the `exports` shortcut. For example, had we written `exports.a = 9`, we'd actually export this object: `{a: 9}`.
+so, `exports` is initially an alias to `module.exports`. If you want to simply export an object with named fields, you can use the `exports` shortcut. For example, we had written `exports.a = 9`, we'd actually export this object: `{a: 9}`.
 
 However, if you want to export a function or another object, you have to use the `module.exports` object. For example: `module.exports = function bar(){}`. Once you do that, `exports` and `module.exports` no longer reference the same object.
 
 ### 3. Can we require local files without using relative paths?
 There are several options, but my favourites are these:
 
-###### 1. The Alias
+#### 1. The Alias
 - Install the [module-alias](https://www.npmjs.com/package/module-alias) package
 ```bash
 npm i --save module-alias
@@ -112,7 +112,7 @@ require('module-alias/register')
 const Article = require('@models/article');
 ```
 
-###### 2. The Global
+#### 2. The Global
 - In your entry-point file, before any `require()` calls:
 ```javascript
 global.__base = __dirname + '/';
@@ -122,7 +122,7 @@ global.__base = __dirname + '/';
 const Article = require(`${__base}app/models/article`);
 ```
 
-###### 3. The Module
+#### 3. The Module
 - Install some module:
 ```bash
 npm install app-module-path --save
@@ -141,7 +141,7 @@ In event-driven programming, an application expresses interest in certain events
 
 > the event loop is something that embedders should have control over. However, it is also a fundamental abstract concept of the JavaScript programming model. V8's solution is to provide a default implementation that embedders can override. See [Relationship between event loop,libuv and v8 engine.](https://stackoverflow.com/questions/49811043/relationship-between-event-loop-libuv-and-v8-engine)
 
-###### SUB QUES: Does the event loop and JavaScript code is running in the same thread?
+#### SUB QUES: Does the event loop and JavaScript code is running in the same thread?
 Effectively **YES**. the "event loop" isn't really a thing that's running. It's mostly just a queue of callbacks waiting for their turn to run.
 
 ### 5. What is the Call Stack? Is it part of V8?
