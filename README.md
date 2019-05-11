@@ -50,7 +50,7 @@ A list of specific questions by Samer Buna a Node.js developer is expected to an
 - [39. What does the `--inspect` argument do for the node command](https://github.com/khalid32/How-well-do-you-know-nodeJS#39-what-does-the---inspect-argument-do-for-the-node-command)
 - [40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?](https://github.com/khalid32/How-well-do-you-know-nodeJS#40-when-working-with-streams-when-do-you-use-the-pipe-function-and-when-do-you-use-events-can-those-two-methods-be-combined)
 
-###### MORE QUESTIONS...
+#### MORE QUESTIONS...
 - [41. What is the relationship between Node.js and V8? Can Node work without V8?](https://github.com/khalid32/How-well-do-you-know-nodeJS#41-what-is-the-relationship-between-nodejs-and-v8-can-node-work-without-v8)
 - [42. Can different versions of the same package be used in the same application?](https://github.com/khalid32/How-well-do-you-know-nodeJS#42-can-different-versions-of-the-same-package-be-used-in-the-same-application)
 - [43. What Node module is implemented by most other Node modules?](https://github.com/khalid32/How-well-do-you-know-nodeJS#43-what-node-module-is-implemented-by-most-other-node-modules)
@@ -155,14 +155,14 @@ The call stack is primarily used for `function invocation(call)`. Since the call
 
 > A call stack is a data structure that uses the **Last In, First Out(LIFO)** principle to temporarily store and manage `function invocation(call)`.
 
-###### Temporarily Store
+#### Temporarily Store
 When a function is invoked(called), the function, its parameters and variables are pushed into the call stack to form a stack frame. This stack is a memory location in the stack. The memory is cleared when the function returns as it is pop out of the stack.
 ![Temporarily Store](https://user-images.githubusercontent.com/8571179/54331221-348e3980-4643-11e9-9597-6b0f99e977f7.png)
 
 ### 6. What is the difference between `setImmediate` and `process.nextTick`?
 `setImmediate` and `process.nextTick` are two options to postpone code execution.
 
-###### setImmediate
+#### setImmediate
 ```javascript
 setImmediate(function(){
     console.log('PrintIn');
@@ -174,7 +174,7 @@ The whole point of `setImmediate` is to postpone the execution of code until imm
 
 > `setImmediate` callbacks will be the last to run on the current event loop iteration.
 
-###### process.nextTick
+#### process.nextTick
 In general, `process.nextTick` schedules a function to be executed when the current *tick* ends.
 However, in order to dig deper, we first need to be familiar with one of **node's central** C++ function, `MakeCallback`, which takes as parameter a JavaScript function along with its arguments and its calling object(*i.e.* the value of `this` inside the function)
 
@@ -242,17 +242,17 @@ V8 is constantly improving and typically ships with features which may not be st
 These are flags that one can pass to the Node.js runtime to enable **Staged** features. Stages features are almost-completed features that are not considered stable by the V8 team.
 
 ### 12. How can you read and inspect the memory usage of a Node.js process?
-###### Heap:
+#### Heap:
 The heap is a memory segment used to store objects, strings and closure
 
-###### Resident Set:
+#### Resident Set:
 A running Node.js process store all its memory inside a **Resident Set**. You can think of it as of a big box which contains some more boxes. The *Resident Set* contains also the actual JavaScript code(inside the **Code segment**) and the **Stack**, where all the variables live.
 ![node-js-memory-usage-768x432](https://user-images.githubusercontent.com/8571179/55133956-9bd2e000-5151-11e9-98e8-7ea5a4737969.png)
 
-###### process!:
+#### process!:
 **process** is a global Node.js object which contains information about the current Node.js process, and it provides **memoryUsage()** method.
 
-###### memoryUsage():
+#### memoryUsage():
 memoryUsage returns an object with various information: **rss, heapTotal, heapUsed** (and **external**)
 - **rss** stands for *Resident Set Size*, it is the total memory allocated for the process execution.
 - **heapTotal** is the total size of the allocated heap.
@@ -272,7 +272,7 @@ V8 object is a native, C++ representation of a JavaScript object. It is a essent
 
 `GetFunction` method from within the context in which you wish to instantiate the JavaScript function. You can also associate a C++ callback with a function template which is called when the JavaScript function instance is invoked.
 
-###### FunctionTemplate structure:
+#### FunctionTemplate structure:
 Note that: A JavaScript function, is a first class object.
 It can be called, can be called as a constructor(instanced), which will create a prototype chain if needed, and the function object itself can hold functions and variables.
 All this translates directly into native code, where a `v8::FunctionTemplate` object(or `interface_template`), exposes two methods returning a `Local<ObjectTemplate>`:
@@ -284,7 +284,7 @@ Local<ObjectTeplate> prototype_t = interface_t->PrototypeTemplate();
 Local<ObjectTemplate> instance_t = interface_t->InstanceTemplate();
 ```
 
-###### CallHandler:
+#### CallHandler:
 CallHandler function is a special native constructor delegate. It is responsible for associating a JavaScript with its native wrappable when invoked from javascript as `new Event()`, but it also must handle the situation when an existing native object, just needs to be wrapped and be available in javascript.
 
 [Javascript native wrappers in V8 — Part I](https://medium.com/@hyperandroid/javascript-native-wrappers-in-v8-part-i-67851a3a797a)
@@ -345,7 +345,7 @@ The `exit` event is emitted when the Node.js process is about the exit as a resu
 - The event loop has no additional work to perform.
 
 ### 20. Do Node buffers use V8 memory? Can they be resized?
-###### Buffer:
+#### Buffer:
 A buffer is a region of a physical memory storage used to temporarily store data while it is being moved from one place to another.
 
 In node, each buffer corresponds to some raw memory allocated outside V8. A buffer acts like an array of integers, but cannot be resized.
@@ -408,10 +408,10 @@ This can be used for example, to check whether an optional package is installed 
 [Requiring modules in Node.js](https://medium.freecodecamp.org/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8)
 
 ### 26. What is the `main` property in `package.json` useful for?
-###### package.json:
+#### package.json:
 The `package.json` file is core to the Node.js ecosystem and is a basic part of understanding and working with Node.js, npm and even modern JavaScript. The `package.json` is used as what equates to a manifest about applications, modules, packages, and more - it's a tool to that's used to make modern development streamlined, modular and efficient.
 
-###### the `main` property:
+#### the `main` property:
 The `main` property of a `package.json` is a direction to the entry point to the module that the `package.json` is describing. In a Node.js application, when the module is called via a require statement, the module's exports from the file named in the `main` property will be what's returned to the Node.js application.
 Inside your `package.json`, the `main` property, with an entry point of `app.js`, would look loke this:
 ```
@@ -420,7 +420,7 @@ Inside your `package.json`, the `main` property, with an entry point of `app.js`
 [The Basics of Package.json in Node.js and npm](https://nodesource.com/blog/the-basics-of-package-json-in-node-js-and-npm/)
 
 ### 27. What are circular modular dependencies in Node and how can they be avoided?
-###### Circular dependencies:
+#### Circular dependencies:
 Circular dependencies(also known as cyclic dependencies) occur when two or more modules reference each other.
 
 This could be a direct reference(A -> B -> A):
@@ -477,7 +477,7 @@ The basic functionality is that it reads a JavaScript file, executes the file, a
 Since the `res` object is a stream, we can write into it in several stages. the `end()` method indicates that we've finished writing into it and that the response is ready to be sent to the client.
 
 ### 30. When is it ok to use the file system *Sync methods(like readFileSync)?
-###### Blocking:
+#### Blocking:
 **Blocking** is when the execution of additional JavaScript in the Node.js process must wait until a non-JavaScript operation completes. This happens because the event loop is unable to continue running JavaScript while a **blocking** operation is occurring.
 Some methods also have blocking counterparts, which have names that end with `Sync`.
 
@@ -520,7 +520,7 @@ If you do what you suggested the module won't work, you will need to compile it/
 [Node.js Addons](https://nodejs.org/api/addons.html)
 
 ### 33. The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?
-###### 1. Require:
+#### 1. Require:
 `require` are used to consume modules. It allows you to include modules in your programs. You can add build-in core Node.js modules, community-based modules`(node_modules)` and local modules.
 ```javascript
 const fs = require('fs');
@@ -535,10 +535,10 @@ The `require` function will look for files in the following order:
 2. Modules in the `node_modules` folder.
 3. If the module name has a `./`, `/` or `../`, it will look for the directory/file in the given path. It matches the file extensions: `*.js`, `*.json` and `*.node`.
 
-###### 2. Exports:
+#### 2. Exports:
 The `exports` keyword gives you the chance to "export" your own objects and methods.
 
-###### 3. Module Wrapper
+#### 3. Module Wrapper
 You can think of it as a self-contained function
 ```javascript
 (function(exports, require, module, __filename, __dirname){
@@ -550,10 +550,10 @@ You can think of it as a self-contained function
 while `exports`, `require` and `module` appear to be global variables, they're actually specific to the module.
 
 ### 34. How can a module be both requirable by other modules and executable directly using the node command?
-###### Module:
+#### Module:
 A module is a discrete program, contained in a single file in Node.js. Modules are therefore tied to files, with one module per file. Modules are available in other programming languages. Node.js uses the CommonJS system of modules, but there are other module types used in the JavaScript ecosystem. The most prominent of these other module systems are the Asynchronous Module Definition(AMD) and the (ECMAScript 6) ES6 module systems.
 
-###### module.exports:
+#### module.exports:
 `module.exports` is an object that the current module returns when it is "required" in another program or module.
 
 [How to use module.exports in Node.js](https://stackabuse.com/how-to-use-module-exports-in-node-js/)
@@ -566,18 +566,18 @@ if(require.main == module){
     console.log('required as a module.');
 }
 ```
-###### Accessing the main module:
+#### Accessing the main module:
 When a flie is run directly from Node.js, `require.main` is set to its `module`. That means that it is possible to determine whether a file has been run directly by testing `require.main === module`.
 For a file `foo.js`, this will be `true` if run via `node foo.js`, but `false` if run by `require('./foo')`.
 Because `module` provides a `filename` property(normally equivalent to `__filename`), the entry point of the current application can be obtained by checking `require.main.filename`.
 
 ### 35. What’s an example of a built-in stream in Node that is both readable and writable?
-###### Streams:
+#### Streams:
 Streams are collections of data - just like arrays or strings. The difference is that streams might not be available all at once and they don't have to fit in memory. This makes streams really powerful when working with large amounts of data, or data that's coming from an external source one **chuck** at a time.
 
 [Node’s Streams](https://jscomplete.com/learn/node-beyond-basics/node-streams)
 
-###### duplex stream:
+#### duplex stream:
 A duplex stream is a stream that implements both a readable and a writable. These streams allow data to pass through. Readable streams will pipe data inso a duplex stream, and the duplex stream can also write that data. So duplex stream represent the middle sections of pipelines.
 
 `net.Socket` is an example for a Duplex(both readable and writable) stream.
@@ -601,14 +601,14 @@ V8 Inspector integration allows attaching Chrome DevTools to Node.js instances f
 V8 Inspector can be enabled by passing the `--inspect` flag when starting a Node.js application. It is also possible to supply a custom port with that flag *e.g.* `--inspect=9222` will accept DevTools connections on port 9222.
 
 ### 40. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?
-###### Pipes in Node.js:
+#### Pipes in Node.js:
 Within Node applications, streams can be piped together using the pipe() method, which takes two arguments:
 - A required writable stream that acts as the destination for the data.
 - An optional object used to pass in options.
 
 see [code example](https://www.guru99.com/node-js-streams-filestream-pipes.html#9)
 
-###### Events in Node.js:
+#### Events in Node.js:
 Events are one of the key concepts in Node.js and sometimes Node.js is referred to as an Event-Driven framework.
 Basically, an event is something that happens. For example, if a connection is established to a database, then the database connection event is triggered. Event driven programming is to create function that will be triggered when specific events are triggered.
 
@@ -622,10 +622,10 @@ essentialy it means that `.pipe()` takes care of listening for `data` and events
 Events can be used to tailor more specific functionaly for your use case.
 
 ### 41. What is the relationship between Node.js and V8? Can Node work without V8?
-###### What is the relationship between Node.js and V8?:
+#### What is the relationship between Node.js and V8?:
 V8 is the JavaScript engine inside of node.js that parses and runs your JavaScript. The same V8 engine is used inside of Chrome to run javascript in the Chrome browser. Google open-sourced the V8 engine and the builders of node.js used it to run JavaScript in node.js.
 
-###### Can Node work without V8?:
+#### Can Node work without V8?:
 NO...
 The current node.js binary cannot work without V8. It would have no JavaScript engine and thus no ability to run code which would obviously render it non-functional. Node.js was not designed to run with any other JavaScript engine and, in fact, all the native code bindings that come with node.js(such as the `fs` module or the net module) all rely on the specific V8 interface between C++ and JavaScript.
 
@@ -692,7 +692,7 @@ try{
 The module code is an invocation of a function taking `exports`, `require`, `module`, `__filename` and `__dirname` as arguments, so these arguments will be printed.
 
 ### 49. What happens when the line cluster.fork() gets executed in a Node script?
-###### Cluster:
+#### Cluster:
 Node.js runs in a single thread. While it's still very fast in most cases, this really doesn't take advantage of multiple processors if they're available. The Cluster module allows you to create a small network of separate processes which can share server ports; this gives your Node.js app access to the full power of your server.
 [Node.js Cluster and Express](https://rowanmanning.com/posts/node-cluster-and-express/)
 
