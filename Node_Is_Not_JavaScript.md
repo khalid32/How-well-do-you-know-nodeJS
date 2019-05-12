@@ -83,3 +83,77 @@ Other than V8 and libuv, Node has a few more dependencies
 - `C-ares` is what enables performing asynchronous DNS queries.
 - `OpenSSL` is used mostly in the tls and crypto modules. It provides implementations for many cryptographic functions.
 - `Zlib` is used for its fast async and streaming compression and decompression interfaces.
+
+## Node's CLI and REPL
+Running the Node command without arguments starts a **REPL(Read, Eval, Print, Loop)**.
+
+One of the most useful features of Node's REPL is the `auto-complete`. If you just Tab-Tab on an empty line, you get this big list.
+Auto-complete works on any object. For example....
+```bash
+## for array
+> var arr = [];
+undefined
+> arr.
+arr.__defineGetter__      arr.__defineSetter__      arr.__lookupGetter__      arr.__lookupSetter__      arr.__proto__             arr.hasOwnProperty        arr.isPrototypeOf         arr.propertyIsEnumerable  arr.valueOf
+
+arr.concat                arr.constructor           arr.copyWithin            arr.entries               arr.every                 arr.fill                  arr.filter                arr.find                  arr.findIndex
+arr.forEach               arr.includes              arr.indexOf               arr.join                  arr.keys                  arr.lastIndexOf           arr.map                   arr.pop                   arr.push
+arr.reduce                arr.reduceRight           arr.reverse               arr.shift                 arr.slice                 arr.some                  arr.sort                  arr.splice                arr.toLocaleString
+arr.toString              arr.unshift               arr.values                
+arr.length
+
+## for object
+> var obj = {};
+undefined
+> obj.
+obj.__defineGetter__      obj.__defineSetter__      obj.__lookupGetter__      obj.__lookupSetter__      obj.__proto__             obj.constructor           obj.hasOwnProperty        obj.isPrototypeOf         obj.propertyIsEnumerable
+obj.toLocaleString        obj.toString              obj.valueOf 
+```
+
+> Node's REPL remembers the lines you previously tested and you can navigate to them with up/down arrow.
+
+Another helpful REPL feature is the underscore(`_`). You can use it to access the last evaluated value.
+
+Node's REPL has special commands that all begin with a `.`, so `. + Tab` will get you a list of those and `.help` will give you a description of each.
+```bash
+> .
+break   clear   editor  exit    help    load    save
+
+> .help
+.break    Sometimes you get stuck, this gets you out
+.clear    Alias for .break
+.editor   Enter editor mode
+.exit     Exit the repl
+.help     Print this help message
+.load     Load JS from a file into the REPL session
+.save     Save all evaluated commands in this REPL session to a file
+```
+
+Node has a build-in REPL module, which is what it uses to give us the default REPL mode, but we can use this module to create REPL sessions, we just require it and invoke the start function.
+
+## Global Object, Process, and Buffer
+Two of the most important things that are available on the `global object` in a normal process are the `process object` and `buffer object`.
+The node process object provides a bridge between a Node application and its running environment. It has many useful properties.
+```bash
+node -p "process" | less
+```
+We can use `process.versions` to read versions of the current node and its dependencies.
+```bash
+node -p "process.versions"
+
+## output
+{ http_parser: '2.8.0',
+  node: '10.10.0',
+  v8: '6.8.275.30-node.24',
+  uv: '1.23.0',
+  zlib: '1.2.11',
+  ares: '1.14.0',
+  modules: '64',
+  nghttp2: '1.33.0',
+  napi: '3',
+  openssl: '1.1.0i',
+  icu: '62.1',
+  unicode: '11.0',
+  cldr: '33.1',
+  tz: '2018e' }
+```
