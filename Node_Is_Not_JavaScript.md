@@ -132,8 +132,10 @@ break   clear   editor  exit    help    load    save
 Node has a build-in REPL module, which is what it uses to give us the default REPL mode, but we can use this module to create REPL sessions, we just require it and invoke the start function.
 
 ## Global Object, Process, and Buffer
+> You're not a node expert unless you recognize and know how to use everything you see in the global list of objects in REPL mode.
+
 Two of the most important things that are available on the `global object` in a normal process are the `process object` and `buffer object`.
-The node process object provides a bridge between a Node application and its running environment. It has many useful properties.
+The node process object provides a bridge between a `Node application` and `its running environment`. It has many useful properties.
 ```bash
 node -p "process" | less
 ```
@@ -157,3 +159,22 @@ node -p "process.versions"
   cldr: '33.1',
   tz: '2018e' }
 ```
+One of the most useful properties on the process object is the env property.
+```bash
+node -p "process.env" | less
+```
+The env property exposes a copy of the user environment(which is the list of strings you get with the ENV command in linux machine and the SET command in Window).
+If we modify `process.env`, which we can actually do, we won't be modifying the actual user environment, so keep that in mind.
+> You should actually not read from `process.env` directly. We actually use configuration variables like passwords or API keys from the environment. Also which ports to listen to, which database URIs to connect to. You should put all of these behind a configuration or settings module and always read from that module, not `process.env` directly.
+
+```bash
+node -p "process.release.lts"
+```
+This will have the LTS label of the used node release, and it will be undefined if the currently used Node release is not LTS, so we can check this label and maybe show a warning if an application is being started in production on a non LTS node.
+
+The most useful thing we can do with the process object is to communicate with the environment, and for that we use the standard streams
+- `stdin` for read
+- `stdout` for write
+- `stderr` to write any errors
+
+Those are pre-established ready streams and we can't actually close them.
