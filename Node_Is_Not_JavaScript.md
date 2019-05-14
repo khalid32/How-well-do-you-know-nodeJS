@@ -178,3 +178,53 @@ The most useful thing we can do with the process object is to communicate with t
 - `stderr` to write any errors
 
 Those are pre-established ready streams and we can't actually close them.
+
+The process object is an instance of EventEmitter. This means we can emit events from process and we listen to certain events on the process.
+
+
+The Buffer class, also available on the global object, is used heavily in Node to work with binary streams of data. 
+```bash
+> Buffer
+
+## Output
+{ [Function: Buffer]
+  poolSize: 8192,
+  from: [Function: from],
+  of: [Function: of],
+  alloc: [Function: alloc],
+  allocUnsafe: [Function: allocUnsafe],
+  allocUnsafeSlow: [Function: allocUnsafeSlow],
+  isBuffer: [Function: isBuffer],
+  compare: [Function: compare],
+  isEncoding: [Function: isEncoding],
+  concat: [Function: concat],
+  byteLength: [Function: byteLength],
+  [Symbol(kIsEncodingSymbol)]: [Function: isEncoding] }
+```
+A buffer is essentially a chunk of memory allocated outside of the V8 heap, and we can put some data in that memory, and that data can be interpreted in one of many ways, depending on the length of a character. That's why when there is a buffer, there is a character encoding, because whatever we place in a Buffer does not have any character encoding, so to read it, we need to specify an encoding.
+
+When we read content from files or sockets, if we don't specify an encoding, we get back a buffer object.
+So a buffer is lower-level data structure to represent a sequence of binary data, and unlike arrays, **once a buffer is allocated, it cannot be resized**.
+
+We can create a buffer in one of [3 major ways](https://nodejs.org/api/buffer.html#buffer_buffer_from_buffer_alloc_and_buffer_allocunsafe):
+- `Buffer.from()`
+- `Buffer.alloc()` and
+- `Buffer.allocUnsafe()`
+
+`Buffer.alloc()` creates a filled buffer of certain size, while `Buffer.allocUnsafe()` will not fill the created buffer
+```bash
+> Buffer.alloc(8)
+<Buffer 00 00 00 00 00 00 00 00>
+> Buffer.allocUnsafe(8)
+<Buffer 48 42 ee 80 86 7f 00 00>
+```
+so that might contain old or sensitive data, and need to be filled right away. To fill a buffer we can use `buffer.fill()`.
+```bash
+> Buffer.allocUnsafe(8).fill()
+<Buffer 00 00 00 00 00 00 00 00>
+```
+We can also create a buffer using the `from` method(`Buffer.from`), which accepts a few different types in its argument.
+Buffers are useful when we need to read things like an image file from a TCP stream or a compressed file, or any other form of binary data access.
+
+One final note on buffers, when converting streams of binary data, we should use the `string_decoder` module, because it handles multi-byte characters much better, especially incomplete multibyte characters. 
+The string decoder preserves the incomplete encoded characters internally until it's complete and then returns the result.
