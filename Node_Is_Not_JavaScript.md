@@ -228,3 +228,15 @@ Buffers are useful when we need to read things like an image file from a TCP str
 
 One final note on buffers, when converting streams of binary data, we should use the `string_decoder` module, because it handles multi-byte characters much better, especially incomplete multibyte characters. 
 The string decoder preserves the incomplete encoded characters internally until it's complete and then returns the result.
+
+## How require() Actually Works
+Modularity is a first concept in Node, and fully understanding how it works is a must.
+There are 2 core modules involved, the `require` function, which is available on the global object, but each module gets its own require function.
+And Module module, also available on the global object, and is used to manage all the modules we require with the require function.
+
+Requiring a module in node is a very simple concept, to execute a require call, Node goes through the following sequence of steps:
+- `Resolving`, to find the absolute file path of a module.
+- `Loading`, is determined by the content of the file at the resolved path.
+- `Wrapping`, is what every module it's private scope, and what makes require local to every module.
+- `Evaluating`, is what the VM eventually does with the code.
+- And then `Caching`, so that when we require this module again, we don't go over all the steps again.
