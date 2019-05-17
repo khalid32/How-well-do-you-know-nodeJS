@@ -280,3 +280,33 @@ The 1st thing Node will try to resolve is a `.js` file. If it can't find a `.js`
   // 3. try something.node
 ```
 [C++ Addons](https://nodejs.org/api/addons.html)
+
+## Wrapping and Caching Modules
+Node's wrqpping of modules is often misunderstood.
+We can use the export object to export properties, but we cannot replace the export object directly. When we need to replace the export object, we need to use the `module.exports` syntax. **The question is....WHY?**
+```javascript
+  exports.id = 1; // this is ok
+  exports = { id: 1 }; // this is not ok
+  module.exports = { id: 1 }; // this is ok
+  // WHY???
+```
+Also, we've seen how the variables we define in the module scope here will not be available outside the module. Only the things that we export are available. So how caome the variables are magically `scoped` and the exports object can't be replaced directly?
+The answer is simple...
+Before compilling a module, Node wraps the module code in a function, which we can inspect using the wrapper property of the `module` module. This dunction has 5 arguments:
+- `exports`
+- `require`
+- `module`
+- `__filename` and
+- `__dirname`
+```bash
+> require('module').wrapper
+[ '(function (exports, require, module, __filename, __dirname) { ',
+  '\n});' ]
+```
+This function wrapping process is what keeps the top-level variables in any module scoped to that module and it is what makes the module/exports/require variables appear to look global when, in fact, they are specific to each module. Same thing for the __filename/__dirname variables, which will contain the module's absolute filename and directory path.
+
+The wrapping functions return value is this exports object reference. Note how we have both exports and the module object itself passed in the wrapper function.
+Exports is simply a variable reference to `module.exports`.
+There is nothing special about require. It's a function that takes a module name or path and returns the exports object.
+
+Because of module's caching, Node caches the first call and does not load the file on the second call. We can see the cache using `require.cache`, and in there you will find an entry for the `.js` file.
