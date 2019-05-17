@@ -240,3 +240,43 @@ Requiring a module in node is a very simple concept, to execute a require call, 
 - `Wrapping`, is what every module it's private scope, and what makes require local to every module.
 - `Evaluating`, is what the VM eventually does with the code.
 - And then `Caching`, so that when we require this module again, we don't go over all the steps again.
+
+#### Module Properties
+```bash
+node -p "module"
+
+## output
+Module {
+  id: '[eval]',
+  exports: {},
+  parent: undefined,
+  filename: '/home/k32/[eval]',
+  loaded: false,
+  children: [],
+  paths: 
+   [ '/home/k32/node_modules',
+     '/home/node_modules',
+     '/node_modules' ] }
+```
+First, an id to identify it.
+The path to the filename can be accessed with the filename property.
+
+Node Modules have a `one-to-one` relation with files on the file-system. However, before we can load the content of a file into the memory, we need to find the location of a file. 
+
+If we want to resolve the module, not to execute it, we can use `require.resolve` method. This behaves exactly the same as require, but does not load the file.
+```javascript
+// in index.js
+
+require.resolve('app'); // resolving app.js file
+```
+It will still throw an error if the file does not exist. This can be used, for example, to check whether an optional package is installed or not.
+
+## JSON and C++ Addons
+We can define and require JSON files, and C++ Addons files with the node require function.
+The 1st thing Node will try to resolve is a `.js` file. If it can't find a `.js` file, it will try a `.json` file and it will parse the file if found as a JSON text file. After that, it will try to find a binary `.node` file.
+```javascript
+  // 1. try something.js
+  // 2. try something.json
+  // 3. try something.node
+```
+[C++ Addons](https://nodejs.org/api/addons.html)
