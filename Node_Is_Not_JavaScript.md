@@ -310,3 +310,60 @@ Exports is simply a variable reference to `module.exports`.
 There is nothing special about require. It's a function that takes a module name or path and returns the exports object.
 
 Because of module's caching, Node caches the first call and does not load the file on the second call. We can see the cache using `require.cache`, and in there you will find an entry for the `.js` file.
+
+## Know Your NPM
+NPM is not part of Node. It just comes packaged with Node since it's the default and most populat package manager. It's also certainly not the only package manager. Facebook released another package manager yarn, which claims to be a lot faster than npm.
+But when we talk about NPM, there are two different things here, the `NPM CLI`, and the `NPM registry` at [npmjs.com](https://www.npmjs.com/), they work together out of the box. But the npm cli can actually work with different registries. It can be used with local files, folders and private registries, and it can even be used with git repositories directly.
+
+If you want to check what package a command will install without actually installing them, you can use the `--dry-run` argument, which will only report what will be installed.
+```bash
+npm i --dry-run
+```
+
+To see a list of all globally installed packages, we can use the command `npm ls -g`, but this by default will list all top-level packages and their dependencies, which is usually a big tree.
+```bash
+npm ls -g
+```
+
+To see only the top level packages, we can control the depth of the tree with `--depth=0`.
+```bash
+npm ls -g --depth=0
+```
+This shows only the first level of the tree.
+
+To see more information about installed packages, you can use the `ll` command instead of `ls`. This shows the description and more information about every package.
+```bash
+npm ll -g --depth=0
+```
+
+If you're reading the output of `npm ls` from a program and you want to parse it, you can use the `--json` argument to get the output in JSON.
+```bash
+npm ls -g --depth=0 --json
+```
+
+**To document NPM packages:**
+- If you use `npm --save` or the short `-S`, the dependency will be considered a production dependency.
+- If you use `--save-dev` or capital D(`-D`) for short, the dependency will be considered a development dependency.
+- If you use `--save-optional` or capital O(`-O`) for short, it will be considered an optional dependency. You can use this for a recommanded tool that's not required.</br>For optional dependencies, the code should usually check for their existence and only use them if they're installed.
+
+You can use the npm update command to update either a single package or all installed packages(when the package name is not provided).
+
+To check to see any of the installed packages are outdated, you can use npm outdated command. This works globally too.
+```bash
+npm outdated -g
+```
+
+NPM has a lot of configurations that we can control. We can see a list of all the configurations we can control with `npm config list -l`.
+```bash
+npm config list -l
+```
+
+We can search the npm registry using the search command right from the command line.
+```bash
+npm search <command>
+```
+
+The `npm shrinkwrap` command can be used to lockdown all the dependency versions so every time anyone runs the npm install command, they get the exact same versions for all the packages.
+
+The `npm home <command>` can be used to open the home page of a package.</br>
+The `npm repo <command>` will open the repository page of a package.
