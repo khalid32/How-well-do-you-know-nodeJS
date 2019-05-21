@@ -312,7 +312,7 @@ There is nothing special about require. It's a function that takes a module name
 Because of module's caching, Node caches the first call and does not load the file on the second call. We can see the cache using `require.cache`, and in there you will find an entry for the `.js` file.
 
 ## Know Your NPM
-NPM is not part of Node. It just comes packaged with Node since it's the default and most populat package manager. It's also certainly not the only package manager. Facebook released another package manager yarn, which claims to be a lot faster than npm.
+NPM is not part of Node. It just comes with packaged Node since it's the default and most popular package manager. It's also certainly not the only package manager. Facebook released another package manager `yarn`, which claims to be a lot faster than npm.
 But when we talk about NPM, there are two different things here, the `NPM CLI`, and the `NPM registry` at [npmjs.com](https://www.npmjs.com/), they work together out of the box. But the npm cli can actually work with different registries. It can be used with local files, folders and private registries, and it can even be used with git repositories directly.
 
 If you want to check what package a command will install without actually installing them, you can use the `--dry-run` argument, which will only report what will be installed.
@@ -367,3 +367,4 @@ The `npm shrinkwrap` command can be used to lockdown all the dependency versions
 
 The `npm home <command>` can be used to open the home page of a package.</br>
 The `npm repo <command>` will open the repository page of a package.
+
