@@ -19,3 +19,16 @@ We can handle requests for these slow operations in one of many ways.
 - The most popular method for handling these requests is `threads`. We can start a new thread to handle each request. But threaded programming can get very complicated when threads start accessing shared resources.
 - Single threaded frameworks like Node use an event loop to handle requests for slow I/O operations without blocking the main execution runtime.
 
+## The Event Loop
+The simplest one-line definition of the event loop is this:
+> **The `entity` that handles `external events` and converts them into `callback invocations`.**
+
+Another Simplest definition:
+> **A loop that picks events from the event queue and pushes their callbacks to the call stack.**
+
+![Event Loop working process](https://user-images.githubusercontent.com/8571179/58104053-e2026800-7c05-11e9-81c2-8c9954b904ca.png)
+
+What I want you to understand first is that there is this thing called the event loop that Node automatically starts when it executes a script, so there is no need for us to manually start it.
+This event loop is what makes the *asynchronous callback programming style* possible.
+Node will actually exit the event loop when there are no more callbacks to perform.
+The event loop is also present in browsers and it's very similar to the one that fires in Node.
