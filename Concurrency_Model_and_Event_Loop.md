@@ -38,3 +38,13 @@ The V8 Call Stack which is simply a list of functions.
 A stack is a `first in last out(FILO)` simple data structure. The top element that we can pop out of the stack is the last element that we pushed into it.
 
 When running a code, V8 uses the stack to record where in the program it is currently executing. Every time we step into a function, it gets pushed to the stack, and every time we return from a function, it gets popped out of the stack.
+
+## Handling Slow Operations
+As long as the operations we execute in the call stack are fast, there is no problem with having a single thread, but when we start dealing will slow operations, the fact that we have a single thread becomes a problem, because these slow operations will block the executions.
+
+## How Callbacks Actually Work
+We all know that Node API is designed around callbacks. We pass functions to other functions as arguments, and those argument functions get executed at a later time, somehow.
+
+It's important to understand that an API call like `setTimeout` is not part of V8. It's provided by Node itself, just like it's provided by browsers too. It's wired in a way to work with the event loop asynchronously. That's why it behaves a bit weirdly on the normal call stack. 
+
+Queue is simply a list of things to be processed.
