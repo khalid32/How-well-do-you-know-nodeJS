@@ -32,3 +32,9 @@ What I want you to understand first is that there is this thing called the event
 This event loop is what makes the *asynchronous callback programming style* possible.
 Node will actually exit the event loop when there are no more callbacks to perform.
 The event loop is also present in browsers and it's very similar to the one that fires in Node.
+
+## The Call Stack
+The V8 Call Stack which is simply a list of functions.
+A stack is a `first in last out(FILO)` simple data structure. The top element that we can pop out of the stack is the last element that we pushed into it.
+
+When running a code, V8 uses the stack to record where in the program it is currently executing. Every time we step into a function, it gets pushed to the stack, and every time we return from a function, it gets popped out of the stack.
