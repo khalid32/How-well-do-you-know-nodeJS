@@ -48,3 +48,17 @@ We all know that Node API is designed around callbacks. We pass functions to oth
 It's important to understand that an API call like `setTimeout` is not part of V8. It's provided by Node itself, just like it's provided by browsers too. It's wired in a way to work with the event loop asynchronously. That's why it behaves a bit weirdly on the normal call stack. 
 
 Queue is simply a list of things to be processed.
+
+## `setImmediate` & `process.nextTick`
+Because of a loop, the timers is not really executed after 0 milliseconds, but rather after we're done with the stack, so if there was a slow operation on the stack, those timers will have to wait.
+The delay we define in a timer is not a guaranteed time to execution, but rather a minimum time to execution. The timer will execute after a minimum of this delay. 
+
+
+Node's event loop has multiple phases. The timers run in one of those phases while most I/O operations run in another phase.
+Node has a special timer...
+- `setImmediate`, which runs in a seperate phase of the event loop.</br>
+It's mostly equivalent to a 0ms timer, except in some situations, `setImmediate` will actually take precedence over previously defined 0ms `setTimeouts`. It's generally recommended to always use `setImmediate` when you want something to get executed on the next tick of the event loop.
+
+Ironically, Node has a `process.nextTick` api that is very similar to `setImmediate`, but Node actually does not execute its callback on the next tick of the event loop, so the name here is misleading, but it's unlikely to change.
+
+`process.nextTick` is not technically part of the event loop, and it does not care about the phases of the event loop. Node processes the callbacks registered with nextTick after the current operation completes and before the event loop continues. This is both useful and dangerous, so be careful about it, especially when using `process.nextTick` recursively.
