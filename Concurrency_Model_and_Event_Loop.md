@@ -53,6 +53,7 @@ Queue is simply a list of things to be processed.
 Because of a loop, the timers is not really executed after 0 milliseconds, but rather after we're done with the stack, so if there was a slow operation on the stack, those timers will have to wait.
 The delay we define in a timer is not a guaranteed time to execution, but rather a minimum time to execution. The timer will execute after a minimum of this delay. 
 
+![The event loop timers and nexttick](https://user-images.githubusercontent.com/8571179/58605974-8d24b880-82bb-11e9-8e79-1f15bd5d776d.png)
 
 Node's event loop has multiple phases. The timers run in one of those phases while most I/O operations run in another phase.
 Node has a special timer...
