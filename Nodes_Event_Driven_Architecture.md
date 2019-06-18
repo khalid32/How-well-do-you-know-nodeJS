@@ -25,15 +25,26 @@ class Logger extends EventEitter {};
 const logger = new Logger();
 
 // Emit
-logger.emit('event');
+logger.emit('event'); // emitting named events
 
 // AddListener
-logger.on('event', listenerFunc);
+logger.on('event', listenerFunc); // registering listener functions
 ```
 
 So an emitter object has 2 main features,
 - `emitting named events` and
 - `registering listener functions`
 
+To work with EventEmitter, we just create a class that extends EventEmitter.
+Emitter objects are what we instentiate from EventEmitter-based classes.
+At any point in their lifecycle, we can use the emit function to emit any named event we want.
+Emitting an event is the signal that some condition has occurred. This condition is usually about a state change in the emitting object.
+We can add listener functions using the on method, and those listener functions will simply be executed every time the emitter object emits their associated named event.
 
 Emitting an event is the signal that some condition has occured. This condition is usually a state change in the emitting object.
+
+Events !== Synchronous/Asynchronous code.
+
+One benefit for using events instead of regular callbacks is that we can react to the same signal multiple times by defining multiple listeners. To accomplish the same with callbacks, we have to write more logic for this inside the single available callback.
+
+Events are a great way for applications to allow multiple external plugins to build functionality on top of the application's core. You can think of them as hook points to allow for customizing the story around a state change.
