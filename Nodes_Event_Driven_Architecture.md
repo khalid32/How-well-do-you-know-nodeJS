@@ -48,3 +48,4 @@ Events !== Synchronous/Asynchronous code.
 One benefit for using events instead of regular callbacks is that we can react to the same signal multiple times by defining multiple listeners. To accomplish the same with callbacks, we have to write more logic for this inside the single available callback.
 
 Events are a great way for applications to allow multiple external plugins to build functionality on top of the application's core. You can think of them as hook points to allow for customizing the story around a state change.
+
