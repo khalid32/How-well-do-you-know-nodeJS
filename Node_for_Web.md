@@ -34,3 +34,27 @@ However, that terminating the response object with a call to the end method is n
 </p>
 </details>
 
+## Working with HTTPS
+HTTPS is the HTTP protocol over TLS/SSL. Node has a separate module to work with HTTPS, but it's very similar to the HTTP module. To convert the basic HTTP server example to work with HTTPS, all we need to do is require https instead and provide the createServer method with an `options object`. This object can be used to configure multiple things. 
+
+```javascript
+const fs = require('fs');
+const server = require('https')
+  .createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+  });
+
+server.on('request', (req, res) => {
+  res.writeHead(200, { 'content-type': 'text/plain' });
+  res.end('Hello world\n');
+});
+
+server.listen(443);
+```
+We first need to generate a certificate. We can use the `openSSL toolkit` for that, which will allow us to first generate a private key. We can have it encrypted or not encrypted, and it will allow us to generate a certificate signing request(CSR), and then self-sign this certificate to test it. Of course, the browsers will not trust out self-signed certificate, but it's good for testing purposes.
+
+We can actually combine all these steps with one command that will output key and a certificate file for us.
+```bash
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes
+```
