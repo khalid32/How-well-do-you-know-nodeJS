@@ -58,3 +58,60 @@ We can actually combine all these steps with one command that will output key an
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes
 ```
+
+## Requesting HTTP/HTTPS Data
+Node can also be used as a client for requesting http and https data.
+There are 5 major classes of objects in Node's HTTP module.
+- `http.Server` is what we use to create basic server, it inherits from `net.Server(net.Server/EE)`, so it's an EventEmitter.
+- `http.Agent(globalAgent/new Agent())` class is used to manage pooling sockets used in HTTP client requests. Node uses a global agent by default, but we can create a different agent with different options when we need to.
+- `http.IncomingMessage`
+- `http.ServerResponse` object gets created internally by an HTTP server
+- `http.ClientRequest` is different from the request object.
+
+Both `clientRequest` and `ServerResponse` implement the `writable stream interface(WritableStream/EE)`.
+`IncomingMessage` objects implement the `readable stream interface(ReadableStream/EE)`, and rest of the objects are event emitters.
+
+```javascript
+// ~~~ request.js ~~~
+const https = require('https');
+
+// req: http.ClientRequest
+const req = https.get(
+  'https://www.google.com',
+  (res) => {
+    // res: http.IncomingMessage
+    console.log(res.statusCode);
+    console.log(res.headers);
+
+    res.on('data', (data) => {
+      console.log(data.toString());
+    });
+  }
+);
+
+req.on('error', (e) => console.log(e));
+
+console.log(req.agent); // http.Agent
+
+// ~~~ server.js ~~~
+const server = require('http').createServer();
+
+server.on('request', (req, res) => {
+  // req: http.IncomingMessage
+  // res: http.ServerResponse
+
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello world\n');
+});
+
+server.listen(8000);
+```
+
+<details><summary><b>5 major classes of objects and where to identify them:</b></summary>
+<p>
+In the request example, the request object here is from the class clientRequest.
+The response object is of type incomingMessage. And the agent that was used for the request is of type http Agent.
+
+In the server example, the server object is from the http server class, the request object inside the request listener is from the IncomingMessage class, and the response object is from the server response class.
+</p>
+</details>
