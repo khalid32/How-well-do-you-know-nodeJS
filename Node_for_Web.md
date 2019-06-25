@@ -59,7 +59,7 @@ We can actually combine all these steps with one command that will output key an
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes
 ```
 
-## Requesting HTTP/HTTPS Data
+ ## Requesting HTTP/HTTPS Data
 Node can also be used as a client for requesting http and https data.
 There are 5 major classes of objects in Node's HTTP module.
 - `http.Server` is what we use to create basic server, it inherits from `net.Server(net.Server/EE)`, so it's an EventEmitter.
@@ -107,11 +107,186 @@ server.on('request', (req, res) => {
 server.listen(8000);
 ```
 
+The HTTP module has a `globalAgent`, which node uses to manage the sockets here.
+```bash
+node
+> http.globalAgent
+
+Agent {
+  domain:
+   Domain {
+     domain: null,
+     _events:
+      { removeListener: [Function: updateExceptionCapture],
+        newListener: [Function: updateExceptionCapture],
+        error: [Function: debugDomainError] },
+     _eventsCount: 3,
+     _maxListeners: undefined,
+     members: [] },
+  _events: { free: [Function] },
+  _eventsCount: 1,
+  _maxListeners: undefined,
+  defaultPort: 80,
+  protocol: 'http:',
+  options: { path: null },
+  requests: {},
+  sockets: {},
+  freeSockets: {},
+  keepAliveMsecs: 1000,
+  keepAlive: false,
+  maxSockets: Infinity,
+  maxFreeSockets: 256
+}
+```
+It has some pre-configured options here. We can see that agent information here if we do a `request.agent`.
+
 <details><summary><b>5 major classes of objects and where to identify them:</b></summary>
 <p>
 In the request example, the request object here is from the class clientRequest.
 The response object is of type incomingMessage. And the agent that was used for the request is of type http Agent.
 
 In the server example, the server object is from the http server class, the request object inside the request listener is from the IncomingMessage class, and the response object is from the server response class.
+</p>
+</details>
+
+## Working with Routes
+```javascript
+const fs = require('fs');
+const server = require('http').createServer();
+const data = {};
+
+server.on('request', (req, res) => {
+  switch (req.url) {
+  case '/api':
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(data));
+    break;
+  case '/home':
+  case '/about':
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(fs.readFileSync(`.${req.url}.html`));
+    break;
+  case '/':
+    res.writeHead(301, { 'Location': '/home' });
+    res.end();
+    break;
+  default:
+    res.writeHead(404);
+    res.end();
+  }
+});
+
+server.listen(8000);
+```
+
+<details><summary><b>HTML Portion:</b></summary>
+<p>
+
+```html
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+  </head>
+  <body>
+    HOME
+  </body>
+</html>
+
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About</title>
+  </head>
+  <body>
+    ABOUT
+  </body>
+</html>
+```
+
+</p>
+</details>
+
+We can actually take a look at HTTP status codes using `http.STATUS_CODES`.
+
+<details><summary><b>HTML Portion:</b></summary>
+<p>
+
+```bash
+node
+> http.STATUS_CODES
+{ '100': 'Continue',
+  '101': 'Switching Protocols',
+  '102': 'Processing',
+  '103': 'Early Hints',
+  '200': 'OK',
+  '201': 'Created',
+  '202': 'Accepted',
+  '203': 'Non-Authoritative Information',
+  '204': 'No Content',
+  '205': 'Reset Content',
+  '206': 'Partial Content',
+  '207': 'Multi-Status',
+  '208': 'Already Reported',
+  '226': 'IM Used',
+  '300': 'Multiple Choices',
+  '301': 'Moved Permanently',
+  '302': 'Found',
+  '303': 'See Other',
+  '304': 'Not Modified',
+  '305': 'Use Proxy',
+  '307': 'Temporary Redirect',
+  '308': 'Permanent Redirect',
+  '400': 'Bad Request',
+  '401': 'Unauthorized',
+  '402': 'Payment Required',
+  '403': 'Forbidden',
+  '404': 'Not Found',
+  '405': 'Method Not Allowed',
+  '406': 'Not Acceptable',
+  '407': 'Proxy Authentication Required',
+  '408': 'Request Timeout',
+  '409': 'Conflict',
+  '410': 'Gone',
+  '411': 'Length Required',
+  '412': 'Precondition Failed',
+  '413': 'Payload Too Large',
+  '414': 'URI Too Long',
+  '415': 'Unsupported Media Type',
+  '416': 'Range Not Satisfiable',
+  '417': 'Expectation Failed',
+  '418': "I\'m a Teapot",
+  '421': 'Misdirected Request',
+  '422': 'Unprocessable Entity',
+  '423': 'Locked',
+  '424': 'Failed Dependency',
+  '425': 'Unordered Collection',
+  '426': 'Upgrade Required',
+  '428': 'Precondition Required',
+  '429': 'Too Many Requests',
+  '431': 'Request Header Fields Too Large',
+  '451': 'Unavailable For Legal Reasons',
+  '500': 'Internal Server Error',
+  '501': 'Not Implemented',
+  '502': 'Bad Gateway',
+  '503': 'Service Unavailable',
+  '504': 'Gateway Timeout',
+  '505': 'HTTP Version Not Supported',
+  '506': 'Variant Also Negotiates',
+  '507': 'Insufficient Storage',
+  '508': 'Loop Detected',
+  '509': 'Bandwidth Limit Exceeded',
+  '510': 'Not Extended',
+  '511': 'Network Authentication Required' }
+```
+
 </p>
 </details>
