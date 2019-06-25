@@ -290,3 +290,153 @@ node
 
 </p>
 </details>
+
+## Parsing URLs and Query Strings
+If you need to parse URL, Node has this URL module that you can use.
+
+```bash
+node
+> url
+{ Url: [Function: Url],
+  parse: [Function: urlParse],
+  resolve: [Function: urlResolve],
+  resolveObject: [Function: urlResolveObject],
+  format: [Function: urlFormat],
+  URL: [Function: URL],
+  URLSearchParams: [Function: URLSearchParams],
+  domainToASCII: [Function: domainToASCII],
+  domainToUnicode: [Function: domainToUnicode] }
+```
+It has many methods, but the most important one is `parse`.
+The format method is also useful.
+
+[NodeJS URL](https://nodejs.org/api/url.html)
+
+![URL Diagram](https://user-images.githubusercontent.com/8571179/60070047-0e466280-9737-11e9-96f3-5f777e1d49e3.png)
+
+This diagram here has details on all the elements of a URL. This example is manually parsing `http://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash` URL in here.
+
+For example, I can use the `url.parse` method to parse this URL.
+
+```bash
+url.parse('https://www.udemy.com/courses/search/?ref=home&src=ukw&q=java')
+Url {
+  protocol: 'https:',
+  slashes: true,
+  auth: null,
+  host: 'www.udemy.com',
+  port: null,
+  hostname: 'www.udemy.com',
+  hash: null,
+  search: '?ref=home&src=ukw&q=java',
+  query: 'ref=home&src=ukw&q=java',
+  pathname: '/courses/search/',
+  path: '/courses/search/?ref=home&src=ukw&q=java',
+  href:
+   'https://www.udemy.com/courses/search/?ref=home&src=ukw&q=java'
+}
+```
+this call is going to give me all the elements that I have in that URL.
+
+We can actually also specify a second argument `true` to parse the query string itself.
+
+<details><summary><b>specify a second argument true:</b></summary>
+<p>
+
+```bash
+url.parse('https://www.udemy.com/courses/search/?ref=home&src=ukw&q=java', true)
+Url {
+  protocol: 'https:',
+  slashes: true,
+  auth: null,
+  host: 'www.udemy.com',
+  port: null,
+  hostname: 'www.udemy.com',
+  hash: null,
+  search: '?ref=home&src=ukw&q=java',
+  query: { ref: 'home', src: 'ukw', q: 'java' }, // < --- here
+  pathname: '/courses/search/',
+  path: '/courses/search/?ref=home&src=ukw&q=java',
+  href:
+   'https://www.udemy.com/courses/search/?ref=home&src=ukw&q=java' }
+```
+
+</p>
+</details>
+
+Reading information from the query string is as easy as doing `.query.queue`, for example.
+
+<details><summary><b>.query.queue:</b></summary>
+<p>
+
+```bash
+url.parse('https://www.udemy.com/courses/search/?ref=home&src=ukw&q=java', true).query.q
+'java'
+```
+
+</p>
+</details>
+
+If you have an object will all these elements detailed and you want to format this object into a URL, you can use the `url.format` method. And this will give you back a string with all these URL object properties concatenated in the right way.
+
+<details><summary><b>using url.format():</b></summary>
+<p>
+
+```javasctipt
+{
+  protocol: 'https',
+  host: 'www.udemy.com/courses',
+  search: '?ref=home&src=ukw&q=java',
+  pathname: '/search',
+}
+```
+
+```bash
+url.format({
+...   protocol: 'https',
+...   host: 'www.udemy.com/courses',
+...   search: '?ref=home&src=ukw&q=java',
+...   pathname: '/search',
+... })
+'https://www.udemy.com/courses/search?ref=home&src=ukw&q=java'
+```
+
+</p>
+</details>
+
+If you only care about the query string, then you can use the `querystring` module.
+```bash
+> querystring
+{ unescapeBuffer: [Function: unescapeBuffer],
+  unescape: [Function: qsUnescape],
+  escape: [Function: qsEscape],
+  stringify: [Function: stringify],
+  encode: [Function: stringify],
+  parse: [Function: parse],
+  decode: [Function: parse] }
+```
+most important ones are the `parse method` and the `stringify method`.
+
+querystring:
+```javascript
+{
+  name: 'Khalid Syfullah',
+  website: 'https://khalid547.wordpress.com/'
+}
+```
+
+```bash
+querystring.stringify({
+...   name: 'Khalid Syfullah',
+...   website: 'https://khalid547.wordpress.com/'
+... })
+'name=Khalid%20Syfullah&website=https%3A%2F%2Fkhalid547.wordpress.com%2F'
+```
+
+reverse method of querystring:
+
+```bash
+querystring.parse('name=Khalid%20Syfullah&website=https%3A%2F%2Fkhalid547.wordpress.com%2F')
+{ name: 'Khalid Syfullah',
+  website: 'https://khalid547.wordpress.com/' }
+```
