@@ -217,7 +217,7 @@ server.listen(8000);
 
 We can actually take a look at HTTP status codes using `http.STATUS_CODES`.
 
-<details><summary><b>HTML Portion:</b></summary>
+<details><summary><b>HTTP Status Code:</b></summary>
 <p>
 
 ```bash
