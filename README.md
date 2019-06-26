@@ -12,4 +12,6 @@
 
 ### [Node for Web](Node_for_Web.md)
 
-### Nodes Common BuildIn Libraries(Nodes_Common_BuildIn_Libraries.md)
+### [Nodes Common BuildIn Libraries](Nodes_Common_BuildIn_Libraries.md)
+
+### [Working with Streams](Working_with_Streams.md)
