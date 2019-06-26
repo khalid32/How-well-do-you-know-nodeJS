@@ -205,6 +205,12 @@ When using the synchronous functions, if you don't want the errors to bubble up,
 
 ## Console and Utilities
 The console module is designed to match the console object provided by web browsers.
+
+<details>
+  <summary><b>console</b></summary>
+
+  <p>
+  
 ```bash
 > console
 Console {
@@ -239,7 +245,10 @@ Console {
   context: [Function: context],
   [Symbol(counts)]: Map {},
   [Symbol(kColorMode)]: 'auto' }
-```
+```  
+
+  </p>
+</details>
 
 In Node.js, there is a Console class that we can use to write to any Node.js stream, and there is a global console object already confirmed to write to `stdout` and `stderr`. Those are 2 different things.
 ```bash
@@ -248,6 +257,11 @@ In Node.js, there is a Console class that we can use to write to any Node.js str
 ```
 
 Console.log uses the `util` module under the hood to format and output a message with a new line.
+
+<details>
+  <summary><b>util</b></Summary>
+  <p>
+  
 ```bash
 > util.
 util.__defineGetter__        util.__defineSetter__        util.__lookupGetter__        util.__lookupSetter__        util.__proto__               util.constructor             util.hasOwnProperty          util.isPrototypeOf
@@ -259,3 +273,121 @@ util.isBoolean               util.isBuffer                util.isDate           
 util.isNumber                util.isObject                util.isPrimitive             util.isRegExp                util.isString                util.isSymbol                util.isUndefined             util.log
 util.print                   util.promisify               util.puts                    util.types
 ```
+
+  </p>
+</details>
+
+We an use `printf` formating elements in the message, or we can simply use multiple arguments to print multiple messages on the same line.
+Popular formatting elements are `%d` for a number and `%s` for a string.
+There is also %j for a JSON object.
+
+If you want to use the printf substitutions without logging it, you can use the `util.format` method. 
+```bash
+> console.log('One %s', 'thing')
+One thing
+
+> util.format('One %s', 'thing')
+'One thing'
+```
+
+We can console log objects and Node will use `util.inspect` method to print a string representations of those objects.
+```bash
+> console.log(module)
+Module {
+  id: '<repl>',
+  exports: {},
+  parent: undefined,
+  filename: null,
+  loaded: false,
+  children: [],
+  paths:
+   [ '/home/k32/repl/node_modules',
+     '/home/k32/node_modules',
+     '/home/node_modules',
+     '/node_modules',
+     '/home/k32/.node_modules',
+     '/home/k32/.node_libraries',
+     '/usr/local/lib/node' ] }
+
+> util.inspect(module)
+'Module {\n  id: \'<repl>\',\n  exports: {},\n  parent: undefined,\n  filename: null,\n  loaded: false,\n  children: [],\n  paths:\n   [ \'/home/k32/repl/node_modules\',\n     \'/home/k32/node_modules\',\n     \'/home/node_modules\',\n     \'/node_modules\',\n     \'/home/k32/.node_modules\',\n     \'/home/k32/.node_libraries\',\n     \'/usr/local/lib/node\' ] }'
+```
+
+`util.inspect` has a second options argument that we can use to control the output.
+For example, to only use the first level of an object, we can use a `depth: 0` option.
+```bash
+> util.inspect(global, { depth: 0 })
+'Object [global] {\n  global: [Circular],\n  process: [process],\n  Buffer: [Function],\n  clearImmediate: [Function: clearImmediate],\n  clearInterval: [Function: clearInterval],\n  clearTimeout: [Function: clearTimeout],\n  setImmediate: [Function],\n  setInterval: [Function: setInterval],\n  setTimeout: [Function] }'
+```
+
+If you want to use the inspect second argument and still print to stdout, you can use the `console.dir` function. It will pass the second argument option to `util.inspect` and print out the result.
+```bash
+> console.dir(global, { depth: 0 })
+Object [global] {
+  global: [Circular],
+  process: [process],
+  Buffer: [Function],
+  clearImmediate: [Function: clearImmediate],
+  clearInterval: [Function: clearInterval],
+  clearTimeout: [Function: clearTimeout],
+  setImmediate: [Function],
+  setInterval: [Function: setInterval],
+  setTimeout: [Function] }
+```
+
+The console object has an assert function for simple assertions to test if the argument is true. It will throw an AssertionError if it's not.
+```bash
+> console.assert(3 == '3')
+undefined
+> console.assert(3 === '3')
+Assertion failed
+undefined
+```
+
+The built-in assert module has a lot more features for assertions. It's not perfect but it's good enough for simple cases.
+
+<details>
+  <summary><b>assert</b></summary>
+  <p>
+  
+  ```bash
+  > assert
+{ [Function: ok]
+  fail: [Function: fail],
+  AssertionError: [Function: AssertionError],
+  ok: [Circular],
+  equal: [Function: equal],
+  notEqual: [Function: notEqual],
+  deepEqual: [Function: deepEqual],
+  notDeepEqual: [Function: notDeepEqual],
+  deepStrictEqual: [Function: deepStrictEqual],
+  notDeepStrictEqual: [Function: notDeepStrictEqual],
+  strictEqual: [Function: strictEqual],
+  notStrictEqual: [Function: notStrictEqual],
+  throws: [Function: throws],
+  rejects: [AsyncFunction: rejects],
+  doesNotThrow: [Function: doesNotThrow],
+  doesNotReject: [AsyncFunction: doesNotReject],
+  ifError: [Function: ifError],
+  strict:
+   { [Function: strict]
+     fail: [Function: fail],
+     AssertionError: [Function: AssertionError],
+     ok: [Circular],
+     equal: [Function: strictEqual],
+     notEqual: [Function: notStrictEqual],
+     deepEqual: [Function: deepStrictEqual],
+     notDeepEqual: [Function: notDeepStrictEqual],
+     deepStrictEqual: [Function: deepStrictEqual],
+     notDeepStrictEqual: [Function: notDeepStrictEqual],
+     strictEqual: [Function: strictEqual],
+     notStrictEqual: [Function: notStrictEqual],
+     throws: [Function: throws],
+     rejects: [AsyncFunction: rejects],
+     doesNotThrow: [Function: doesNotThrow],
+     doesNotReject: [AsyncFunction: doesNotReject],
+     ifError: [Function: ifError],
+     strict: [Circular] } }
+  ```
+  </p>
+</details>
